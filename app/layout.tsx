@@ -1,32 +1,125 @@
-import type { Metadata } from "next";
-import { Public_Sans } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next'
+import { Nunito, Open_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
 
-const publicSans = Public_Sans({
-  variable: "--font-public-sans",
-  subsets: ["latin"],
-});
+const _nunito = Nunito({
+  subsets: ['latin'],
+  variable: '--font-nunito',
+})
+
+const _openSans = Open_Sans({
+  subsets: ['latin'],
+  variable: '--font-open-sans',
+})
 
 export const metadata: Metadata = {
-  title: "VoltMaster Electric | Reliable Electrical Solutions",
-  description: "Professional, licensed, and insured electricians ready to solve your power needs.",
-};
+  metadataBase: new URL('https://electricjamez.co.uk'),
+  title: 'Electric Jamezed | NAPIT Approved Electrician | North West London NW2',
+  description:
+    'Professional electrical services in North West London (NW2). NAPIT approved & Which? Trusted Trader. EV charger installation, air conditioning, PAT testing, electrical safety certificates & more. Call today for a free quote.',
+  keywords: [
+    'electrician NW2',
+    'electrician North West London',
+    'Electric Jamez',
+    'NAPIT approved electrician',
+    'Which Trusted Trader electrician',
+    'EV charger installation London',
+    'air conditioning installation London',
+    'PAT testing London',
+    'electrical safety certificate London',
+    'outdoor lighting installation',
+    'flood damage electrical assessment',
+  ],
+  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [
+      { url: '/EJ-logo.png', sizes: '32x32', type: 'image/png' },
+    ],
+  },
+  openGraph: {
+    title: 'Electric Jamez | Professional Electrical Services | NW2 London',
+    description:
+      'NAPIT approved & Which? Trusted Trader electrician serving North West London. Expert EV charger installation, air conditioning, safety certificates & more.',
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://electricjamez.co.uk',
+    siteName: 'Electric Jamez',
+    images: [{ url: '/ejsocial-1.png', width: 1200, height: 630, alt: 'Electric Jamez — NAPIT Approved Electrician NW2' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Electric Jamez | NAPIT Approved Electrician | NW2',
+    description:
+      'Professional electrical services in North West London. NAPIT approved & Which? Trusted Trader.',
+    images: ['/ejsocial-1.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#cbd4e8ff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
+import { BackToTop } from '@/components/back-to-top'
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${_nunito.variable} ${_openSans.variable} scroll-smooth`}>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+             __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Electrician',
+              name: 'Electric Jamez',
+              description:
+                'Professional electrical services in North West London. NAPIT approved & Which? Trusted Trader.',
+              areaServed: {
+                '@type': 'PostalAddress',
+                addressLocality: 'North West London',
+                postalCode: 'NW2',
+                addressCountry: 'GB',
+              },
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Electrical Services',
+                itemListElement: [
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Air Conditioning Installation' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'EV Charger Installation' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Electric Safety Certificates' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PAT Testing' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Outdoor Lighting & Heating' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Flood Damage Electrical Assessment' } },
+                ],
+              },
+            }),
+          }}
+        />
       </head>
-      <body
-        className={`${publicSans.variable} font-display antialiased`}
-      >
+      <body className="font-sans antialiased text-white">
         {children}
+        <BackToTop />
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
