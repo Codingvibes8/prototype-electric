@@ -106,7 +106,7 @@ export function Navigation() {
             aria-label="Go to homepage"
           >
             <Image
-              src="/public/EJ-logo.png"
+              src="/EJ-logo.png"
               alt="Electric Jamez logo"
               width={48}
               height={48}
