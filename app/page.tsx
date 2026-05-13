@@ -1,14 +1,10 @@
-import { Navigation } from '@/components/navigation'
-import { Hero } from '@/components/hero'
+import { Navigation } from '@/components/Navigation'
+import { Hero } from '@/components/Hero'
 import { Services } from '@/components/services'
-import { FAQ } from '@/components/faq'
-import { CTABanner } from '@/components/cta-banner'
-import { Gallery } from '@/components/gallery'
+import Gallery from '@/components/Gallery'
 import { Contact } from '@/components/contact'
-import { Footer } from '@/components/footer'
-import { ChatAssistant } from '@/components/chat-assistant'
+import Footer from '@/components/Footer'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
 import { MapSection } from '@/components/map-section'
 
 export const metadata = {
@@ -33,16 +29,12 @@ export default function Home() {
         </ScrollReveal>
 
         <ScrollReveal direction="left" delay={0.3}>
-        <FAQ />
-      </ScrollReveal>
+          {/* FAQ component was here */}
+        </ScrollReveal>
 
-      <ScrollReveal direction="up" delay={0.4}>
-        <MapSection />
-      </ScrollReveal>
-
-      <ScrollReveal direction="up" delay={0.5}>
-        <CTABanner />
-      </ScrollReveal>
+        <ScrollReveal direction="up" delay={0.4}>
+          <MapSection />
+        </ScrollReveal>
 
         <ScrollReveal direction="left">
           <Gallery />
@@ -54,7 +46,6 @@ export default function Home() {
       </div>
 
       <Footer />
-      <ChatAssistant />
     </main>
   )
 }
