@@ -70,16 +70,16 @@ export const services = [
 
 export function Services() {
   return (
-    <section id="services" className="relative py-24 md:py-32 bg-background">
+    <section id="services" className="relative py-24 md:py-32 bg-slate-50">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-top-4 duration-1000 shadow-2xl fill-mode-both">
+        <div className="text-center mb-16 animate-in fade-in slide-in-from-top-4 duration-1000 shadow-2xl  fill-mode-both">
           <span className="text-sm font-semibold text-gray-700 uppercase tracking-[0.2em]">
             Service Excellence
           </span>
           <h2 className="mt-4 font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance">
             How We Can Help
           </h2>
-          <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto text-pretty leading-relaxed">
+          <p className="mt-6 mb-6 text-lg text-gray-600 max-w-2xl mx-auto text-pretty leading-relaxed">
             Reliable, certified, and safe electrical solutions for homeowners and businesses across North West London and beyond.
           </p>
         </div>

@@ -7,12 +7,14 @@ export function FooterLinkClient({ href, label }: { href: string; label: string 
   const pathname = usePathname()
   const router = useRouter()
 
+  const linkClass = "text-sm text-slate-400 hover:text-red-400 hover:translate-x-1 transition-all duration-300 inline-block"
+
   // Page links (not hash)
   if (href.startsWith('/')) {
     return (
       <Link
         href={href}
-        className="text-sm text-[#94a3b8] hover:text-[#00b4d8] transition-colors"
+        className={linkClass}
       >
         {label}
       </Link>
@@ -40,7 +42,7 @@ export function FooterLinkClient({ href, label }: { href: string; label: string 
   return (
     <button
       onClick={handleClick}
-      className="text-sm text-[#94a3b8] hover:text-[#00b4d8] transition-colors"
+      className={linkClass}
     >
       {label}
     </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Phone, Shield, Award, ChevronDown } from 'lucide-react'
-import { Particles } from '@/components/particles';
+import { Particles } from './particles';
 import { HeroScrollButton } from '@/components/hero-scroll-button'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -29,15 +29,16 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl pt-32 pb-16 md:pt-48 md:pb-24 px-6 text-center h-full flex flex-col justify-center items-center">
         {/* Trust badges - placed ABOVE heading for hierarchy */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-8 animate-in fade-in slide-in-from-top-4 duration-1000">
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-2xl transition-transform hover:scale-105">
-            <Shield className="w-4 h-4 text-emerald-400" />
-            <span className="text-xs font-bold text-white tracking-wide">NAPIT Approved</span>
+          <div className="flex items-center gap-2 bg-yellow-300 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-2xl transition-transform hover:scale-105">
+            <Shield className="w-4 h-4 text-gray-800" />
+            <span className="text-xs font-bold text-gray-800 tracking-wide">NAPIT Approved</span>
           </div>
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-2xl transition-transform hover:scale-105">
-            <Award className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold text-white tracking-wide">{'Which? Trusted Trader'}</span>
+          <div className="flex items-center gap-2 bg-yellow-300 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-2xl transition-transform hover:scale-105">
+            <Award className="w-4 h-4 text-gray-800" />
+            <span className="text-xs font-bold text-gray-800 tracking-wide">{'Which? Trusted Trader'}</span>
           </div>
         </div>
+
 
         {/* Heading */}
         <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white text-balance leading-[1.05] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
@@ -55,9 +56,9 @@ export function Hero() {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
           <Link
             href="tel:+447000000000"
-            className="group relative bg-red-600 text-white rounded-xl flex items-center gap-3 px-10 py-5 font-bold text-xl transition-all shadow-[0_20px_50px_rgba(220,38,38,0.3)] hover:bg-red-700 hover:shadow-[0_20px_50px_rgba(220,38,38,0.5)] active:scale-95 overflow-hidden"
+            className="group relative bg-yellow-300 text-gray-800 rounded-xl flex items-center gap-3 px-10 py-5 font-bold text-xl transition-all shadow-[0_20px_50px_rgba(220,38,38,0.3)] hover:bg-red-300 hover:shadow-[0_20px_50px_rgba(220,38,38,0.5)] active:scale-95 overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="absolute inset-0" />
             <Phone className="w-6 h-6 animate-pulse" />
             Get a Free Quote
           </Link>
