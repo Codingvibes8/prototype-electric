@@ -74,7 +74,6 @@ export const viewport: Viewport = {
   userScalable: true,
 }
 
-import { BackToTop } from '@/components/back-to-top'
 
 export default function RootLayout({
   children,
@@ -117,7 +116,6 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased text-white">
         {children}
-        <BackToTop />
         <Analytics />
       </body>
     </html>
