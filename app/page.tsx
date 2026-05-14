@@ -1,9 +1,12 @@
-import { Navigation } from '@/components/Navigation'
-import { Hero } from '@/components/Hero'
+import { Navigation } from '@/components/navigation'
+import { Hero } from '@/components/hero'
 import { Services } from '@/components/services'
-import Gallery from '@/components/Gallery'
+import { FAQ } from '@/components/faq'
+import { CTABanner } from '@/components/cta-banner'
+import { Gallery } from '@/components/gallery'
 import { Contact } from '@/components/contact'
-import Footer from '@/components/Footer'
+import { Footer } from '@/components/footer'
+import { ChatAssistant } from '@/components/chat-assistant'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { MapSection } from '@/components/map-section'
 
@@ -26,10 +29,6 @@ export default function Home() {
       <div className="flex flex-col gap-0 md:gap-0">
         <ScrollReveal>
           <Services />
-        </ScrollReveal>
-
-        <ScrollReveal direction="left" delay={0.3}>
-          {/* FAQ component was here */}
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.4}>

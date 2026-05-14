@@ -61,8 +61,8 @@ export default function Footer() {
               <a href="tel:+447000000000" className="group flex items-center gap-4 text-sm text-slate-400 hover:text-white transition-all duration-300 w-fit">
                 <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 text-red-400 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
                   <Phone className="w-4 h-4" />
-                </div>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">07000 000 000</span>
+                </div>
               </a>
               <a href="mailto:info@electricjamez.co.uk" className="group flex items-center gap-4 text-sm text-slate-400 hover:text-white transition-all duration-300 w-fit">
                 <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
@@ -76,16 +76,6 @@ export default function Footer() {
                 </div>
                 <span>NW2, North West London</span>
               </div>
-            </div>
-          </div>
-
-          {/* Services */}
-          <div className="lg:col-span-2">
-            <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
-              SERVICES
-            </h3>
-            <ul className="flex flex-col gap-4">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <FooterLinkClient href={link.href} label={link.label} />

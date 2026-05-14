@@ -42,7 +42,7 @@ export function ContactFormClient() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border border-slate-200 rounded-xl p-6 md:p-8 flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="bg-background border border-border rounded-xl p-6 md:p-8 flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">

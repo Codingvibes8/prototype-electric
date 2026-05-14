@@ -2,10 +2,12 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 import { ContactFormClient } from './contact-form-client'
 
 export function Contact() {
+
   return (
     <section id="contact" className="relative py-24 md:py-32 overflow-hidden bg-slate-50">
+
       {/* Dynamic Background Glows */}
-      <div className="absolute top-1/2 left-0 w-full h-1/2 overflow-hidden pointer-events-none opacity-5">
+      <div className="absolute top-1/2 left-0 w-full h-1/2 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute top-0 -left-1/4 w-3/4 h-full bg-red-600 rounded-full blur-[150px]" />
       </div>
 

@@ -82,6 +82,7 @@ export function Services() {
           <p className="mt-6 mb-6 text-lg text-gray-600 max-w-2xl mx-auto text-pretty leading-relaxed">
             Reliable, certified, and safe electrical solutions for homeowners and businesses across North West London and beyond.
           </p>
+          
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

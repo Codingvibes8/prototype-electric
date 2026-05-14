@@ -64,7 +64,7 @@ export function MapSection() {
   }
 
   return (
-    <section id="location" className="relative py-24 md:py-32 bg-slate-950 overflow-hidden">
+    <section id="location" className="relative py-24 md:py-32 overflow-hidden bg-gray-100">
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly`}
         onLoad={() => setIsLoaded(true)}
