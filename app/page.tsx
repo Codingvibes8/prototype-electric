@@ -31,10 +31,6 @@ export default function Home() {
           <Services />
         </ScrollReveal>
 
-        <ScrollReveal direction="left" delay={0.3}>
-          {/* FAQ component was here */}
-        </ScrollReveal>
-
         <ScrollReveal direction="up" delay={0.4}>
           <MapSection />
         </ScrollReveal>
