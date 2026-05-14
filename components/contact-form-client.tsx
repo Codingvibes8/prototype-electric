@@ -23,7 +23,7 @@ export function ContactFormClient() {
 
   if (formState === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center bg-background border border-primary/20 rounded-xl p-12 text-center">
+      <div className="flex flex-col items-center justify-center bg-gray-100 border border-primary/20 rounded-xl p-12 text-center">
         <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
           <CheckCircle className="w-8 h-8 text-primary" />
         </div>
@@ -42,7 +42,7 @@ export function ContactFormClient() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-background border border-border rounded-xl p-6 md:p-8 flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="bg-gray-100 border border-border rounded-xl p-6 md:p-8 flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">

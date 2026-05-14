@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, Phone, ChevronDown, Wind, Car, ShieldCheck, Droplets, Sun, ClipboardCheck } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, Wind, Car, ShieldCheck, Droplets, Sun, ClipboardCheck, MapPin, Clock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -93,6 +93,38 @@ export function Navigation() {
             : 'bg-transparent'
         }`}
       >
+        {/* Top Header */}
+        <div className={`hidden md:block w-full bg-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-[60px] opacity-100'}`}>
+          <div className="mx-auto flex max-w-7xl items-center justify-end px-6 h-full">
+            {/* Contact Details (Desktop) */}
+            <div className="flex gap-8 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-primary" />
+                <div className="flex flex-col">
+                  <span className="font-semibold text-gray-900">+44 20 7946 0958</span>
+                  <span className="text-xs">Call us today</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary" />
+                <div className="flex flex-col">
+                  <span className="font-semibold text-gray-900">North West London</span>
+                  <span className="text-xs">Serving the local area</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <div className="flex flex-col">
+                  <span className="font-semibold text-gray-900">Mon-Fri: 8am - 6pm</span>
+                  <span className="text-xs">24/7 Emergency</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <button
             onClick={() => {

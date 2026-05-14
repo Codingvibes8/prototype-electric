@@ -10,9 +10,10 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2 text-primary">
               <span className="material-symbols-outlined text-3xl font-bold">bolt</span>
               <h2 className="text-xl font-bold uppercase tracking-tight text-white">
-                VoltMaster <span className="text-primary">Electric</span>
+                Electric<span className="text-primary">Jamez</span>
               </h2>
             </Link>
+            
             <p className="text-slate-400">
               Professional electrical contracting services for commercial and residential clients. Available for emergency services 24/7.
             </p>
@@ -38,28 +39,32 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-6">Contact Details</h4>
             <ul className="flex flex-col gap-4 text-slate-400">
               <li className="flex items-center gap-3">
+
                 <span className="material-symbols-outlined text-primary">phone</span>
                 (555) 123-4567
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary">mail</span>
-                info@voltmaster.com
+                info@electrijamez
+                .com
+
               </li>
               <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary">location_on</span>
-                123 Power Grid Lane,<br />ElectriCity, ST 12345
+                123 Power Grid Lane,<br />ElectriCity, NW4 7TH
               </li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-bold mb-6">Service Areas</h4>
             <ul className="flex flex-col gap-4 text-slate-400">
-              <li>Greater Metropolitan Area</li>
-              <li>Suburban North Districts</li>
-              <li>Industrial East Sector</li>
-              <li>Coastal Western Region</li>
+              <li>Hamstead</li>
+              <li>Golder Green</li>
+              <li>Central London</li>
+              <li>Swiss Cottage</li>
             </ul>
             <div className="mt-6">
+
               <div className="w-full h-32 rounded-xl bg-slate-800 overflow-hidden opacity-50 relative">
                 <Image
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqVkpAQaj5si_HJdFMd7wMdk2_N91vJkSc1682MBvtw8jCpzQ4xAMOmzpxBn3LaJ_rk_-CvoMeDFVG5qLDGVlAKZB4-mtudve5O0zTlzV6IgKlToJdLoJBQLFlnIK0byfPXLIJeefxAuxBJ25ybZ-K56Hwn2U46WAzfeZN2SulawJmWUX7JPd16eldQJT-_zAskpiNuzqC_9LhCsYjpl4P02dTMxNYorYS7Ao0o5CeO74hNjI2PJvyDpZmrbLTSMdmHRetsNeQbu4"
