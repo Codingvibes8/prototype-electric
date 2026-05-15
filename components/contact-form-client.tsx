@@ -1,15 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, CheckCircle, Loader2 } from 'lucide-react'
+import { Send, CheckCircle, Loader2, ChevronRight } from 'lucide-react'
 
 export function ContactFormClient() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle')
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    title: '',
+    company: '',
     email: '',
-    phone: '',
-    service: '',
+    reason: '',
+    areaOfInterest: '',
+    subject: '',
     message: '',
   })
 
@@ -18,22 +21,22 @@ export function ContactFormClient() {
     setFormState('submitting')
     await new Promise((resolve) => setTimeout(resolve, 1500))
     setFormState('success')
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+    setFormData({ firstName: '', title: '', company: '', email: '', reason: '', areaOfInterest: '', subject: '', message: '' })
   }
 
   if (formState === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center bg-white border border-slate-200 rounded-xl p-12 text-center">
-        <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mb-4">
-          <CheckCircle className="w-8 h-8 text-red-600" />
+      <div className="flex flex-col items-center justify-center bg-white rounded-xl p-12 text-center h-full">
+        <div className="w-16 h-16 rounded-full bg-[#1e293b] flex items-center justify-center mb-4">
+          <CheckCircle className="w-8 h-8 text-white" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-slate-900">Message Sent!</h3>
+        <h3 className="font-serif text-2xl font-bold text-[#1e293b]">Message Sent!</h3>
         <p className="mt-2 text-slate-500">
           {"Thank you for getting in touch. We'll get back to you within 24 hours."}
         </p>
         <button
           onClick={() => setFormState('idle')}
-          className="mt-6 text-sm text-red-600 hover:text-red-500 font-semibold transition-colors"
+          className="mt-6 text-sm text-[#1e293b] hover:text-slate-700 font-semibold transition-colors"
         >
           Send another message
         </button>
@@ -42,106 +45,121 @@ export function ContactFormClient() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-background border border-border rounded-xl p-6 md:p-8 flex flex-col gap-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="name"
-            type="text"
-            required
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="John Smith"
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors"
-          />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Left Column */}
+        <div className="flex flex-col gap-6">
+          <div>
+            <input
+              type="text"
+              required
+              value={formData.firstName}
+              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+              placeholder="First name *"
+              className="w-full bg-[#f1f5f9] border border-red-600 rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-red-600 transition-colors"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              placeholder="Title"
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              value={formData.company}
+              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+              placeholder="Company/Position"
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors"
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="E-mail *"
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors"
+            />
+          </div>
+          <div>
+            <select
+              required
+              value={formData.reason}
+              onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors appearance-none"
+              style={{ backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1em' }}
+            >
+              <option value="" disabled hidden>Reason for Contact *</option>
+              <option value="quote">Request a Quote</option>
+              <option value="support">Support</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="john@example.com"
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors"
-          />
+
+        {/* Right Column */}
+        <div className="flex flex-col gap-6">
+          <div>
+            <select
+              required
+              value={formData.areaOfInterest}
+              onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors appearance-none"
+              style={{ backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1em' }}
+            >
+              <option value="" disabled hidden>Area of Interest *</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="industrial">Industrial</option>
+            </select>
+          </div>
+          <div>
+            <input
+              type="text"
+              required
+              value={formData.subject}
+              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+              placeholder="Subject *"
+              className="w-full bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors"
+            />
+          </div>
+          <div className="flex-grow flex flex-col">
+            <textarea
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              placeholder="Your Message *"
+              className="w-full flex-grow bg-[#f1f5f9] border-none rounded-none px-4 py-3.5 text-sm font-bold text-slate-900 placeholder:text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-300 transition-colors resize-none min-h-[150px]"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-            Phone Number
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            placeholder="07000 000 000"
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors"
-          />
-        </div>
-        <div>
-          <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
-            Service Required
-          </label>
-          <select
-            id="service"
-            value={formData.service}
-            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors"
-          >
-            <option value="">Select a service</option>
-            <option value="air-conditioning">Air Conditioning Service</option>
-            <option value="ev-charger">EV Charger Installation</option>
-            <option value="safety-certificate">Electric Safety Certificate</option>
-            <option value="flood-damage">Flood Damage Assessment</option>
-            <option value="outdoor-lighting">Outdoor Lighting & Heating</option>
-            <option value="pat-testing">PAT Testing</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+      <div className="flex justify-start mt-2">
+        <button
+          type="submit"
+          disabled={formState === 'submitting'}
+          className="flex items-center justify-center gap-2 bg-[#1e293b] text-white px-8 py-3.5 font-bold text-sm hover:bg-slate-800 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+        >
+          {formState === 'submitting' ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Submit
+            </>
+          ) : (
+            <>
+              Submit
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </>
+          )}
+        </button>
       </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-          Message <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          id="message"
-          required
-          rows={4}
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Tell us about your project..."
-          className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors resize-none"
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={formState === 'submitting'}
-        className="flex items-center justify-center gap-2 bg-red-600 text-white px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-red-700 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
-      >
-        {formState === 'submitting' ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send className="w-4 h-4" />
-            Send Message
-          </>
-        )}
-      </button>
     </form>
   )
 }

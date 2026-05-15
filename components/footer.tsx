@@ -59,20 +59,22 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-4">
               <a href="tel:+447000000000" className="group flex items-center gap-4 text-sm text-slate-400 hover:text-white transition-all duration-300 w-fit">
-                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 text-red-400 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
                   <Phone className="w-4 h-4" />
                 <span className="group-hover:translate-x-1 transition-transform duration-300">07000 000 000</span>
                 </div>
               </a>
-              <a href="mailto:info@electricjamez.co.uk" className="group flex items-center gap-4 text-sm text-slate-400 hover:text-white transition-all duration-300 w-fit">
-                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+              <a href="mailto:info@electricjamez.co.uk" className="group flex items-center gap-4 text-sm text-slate-50 hover:text-white transition-all duration-300 w-fit">
+                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
                   <Mail className="w-4 h-4" />
                 </div>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">info@electricjamez.co.uk</span>
               </a>
+
+
               <div className="flex items-center gap-4 text-sm text-slate-50 w-fit">
-                <div className="p-2 rounded-lg bg-white/5 text-slate-400">
-                  <MapPin className="w-4 h-4" />
+                <div className="p-2  text-slate-400">
+                  <MapPin className="w-4 h-4 text-slate-50 hover:bg-yellow-500" />
                 </div>
                 <span>NW2, North West London</span>
               </div>
@@ -88,12 +90,11 @@ export default function Footer() {
             <ul className="flex flex-col gap-4">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
-                  <FooterLinkClient href={link.href} label={link.label} />
+                  <FooterLinkClient href={link.href} label={link.label}/>
                 </li>
               ))}
             </ul>
           </div>
-
           {/* Quick Links */}
           <div className="lg:col-span-2">
             <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
