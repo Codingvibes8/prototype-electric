@@ -7,7 +7,7 @@ export function FooterLinkClient({ href, label }: { href: string; label: string 
   const pathname = usePathname()
   const router = useRouter()
 
-  const linkClass = "text-sm text-slate-400 hover:text-red-400 hover:translate-x-1 transition-all duration-300 inline-block"
+  const linkClass = "text-sm text-slate-50 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block"
 
   // Page links (not hash)
   if (href.startsWith('/')) {

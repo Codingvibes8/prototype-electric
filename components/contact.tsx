@@ -1,6 +1,6 @@
-import { Phone, Mail, MapPin, Facebook, Linkedin } from 'lucide-react'
+import { Phone, Mail, MapPin } from 'lucide-react'
 import { ContactFormClient } from './contact-form-client'
-
+import { ContactMap } from './contact-map'
 export function Contact() {
 
   return (
@@ -18,38 +18,45 @@ export function Contact() {
               Please let us know if you have a question, want to leave a comment, or would like further information about Contract Electrical.
             </p>
 
-            <hr className="w-full max-w-md border-t border-slate-300 mb-8" />
+            <hr className="w-full max-w-md border-t border-slate-300 mb-8" 
+            />
 
             <div className="flex flex-col gap-6 mb-10">
               <div className="flex items-start gap-4">
                 <MapPin className="w-6 h-6 text-red-600 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-slate-600 font-medium">2/169 Beechboro Rd S.</p>
-                  <p className="text-slate-600 font-medium">Bayswater WA 6053</p>
+                  <p className="text-slate-600 font-medium">Electric Lane</p>
+                  <p className="text-slate-600 font-medium">Cricklewood, London NW2</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-red-600 flex-shrink-0" />
-                <a href="tel:0893704044" className="text-slate-600 font-medium hover:text-red-600 transition-colors">
-                  (08) 9370 4044
+                <a href="tel:(0208) 9370 4044"
+            className="text-slate-600 font-medium hover:text-red-600 transition-colors">
+                  (0208) 9370 4044
                 </a>
               </div>
 
               <div className="flex items-center gap-4">
                 <Mail className="w-6 h-6 text-red-600 flex-shrink-0" />
                 <a href="mailto:admin@contractelectrical.com.au" className="text-slate-600 font-medium hover:text-red-600 transition-colors">
-                  admin@contractelectrical.com.au
+                  admin@electricjamez.com.au
                 </a>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-c
+            enter gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center text-white hover:bg-red-600 transition-colors">
-                <Facebook className="w-5 h-5" fill="currentColor" />
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.238 3h-2.762v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z" />
+                </svg>
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center text-white hover:bg-red-600 transition-colors">
-                <Linkedin className="w-5 h-5" fill="currentColor" />
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
               </a>
             </div>
           </div>
@@ -61,18 +68,7 @@ export function Contact() {
         </div>
 
         {/* Google Maps Embed */}
-        <div className="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg border border-slate-200">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3386.680076233156!2d115.91031301211756!3d-31.91526367406981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32ba0b3f5509dd%3A0xc69ccff16d80d2fc!2sContract%20Electrical%20Pty%20Ltd!5e0!3m2!1sen!2sau!4v1715732123456!5m2!1sen!2sau"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full"
-          ></iframe>
-        </div>
+        <ContactMap />
       </div>
     </section>
   )

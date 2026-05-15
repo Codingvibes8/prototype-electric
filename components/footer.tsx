@@ -26,7 +26,7 @@ const quickLinks = [
 export default function Footer() {
   
   return (
-    <footer className="relative bg-red-400 overflow-hidden pt-20">
+    <footer className="relative bg-red-300 overflow-hidden pt-20">
       {/* Top Gradient Border */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
 
@@ -59,13 +59,13 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-4">
               <a href="tel:+447000000000" className="group flex items-center gap-4 text-sm text-slate-400 hover:text-white transition-all duration-300 w-fit">
-                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
+                <div className="p-2 rounded-lg  text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
                   <Phone className="w-4 h-4" />
                 <span className="group-hover:translate-x-1 transition-transform duration-300">07000 000 000</span>
                 </div>
               </a>
               <a href="mailto:info@electricjamez.co.uk" className="group flex items-center gap-4 text-sm text-slate-50 hover:text-white transition-all duration-300 w-fit">
-                <div className="p-2 rounded-lg bg-red-500/10 text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
+                <div className="p-2 rounded-lg  text-slate-50 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
                   <Mail className="w-4 h-4" />
                 </div>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">info@electricjamez.co.uk</span>
@@ -74,7 +74,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-4 text-sm text-slate-50 w-fit">
                 <div className="p-2  text-slate-400">
-                  <MapPin className="w-4 h-4 text-slate-50 hover:bg-yellow-500" />
+                  <MapPin className="w-4 h-4 text-slate-50 " />
                 </div>
                 <span>NW2, North West London</span>
               </div>
@@ -84,7 +84,7 @@ export default function Footer() {
           {/* Services */}
           <div className="lg:col-span-2">
             <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
               SERVICES
             </h3>
             <ul className="flex flex-col gap-4">
@@ -98,7 +98,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="lg:col-span-2">
             <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
               COMPANY
             </h3>
             <ul className="flex flex-col gap-4">
@@ -113,7 +113,7 @@ export default function Footer() {
           {/* Areas Served - SEO BOOST */}
           <div className="lg:col-span-2">
             <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
               AREAS SERVED
             </h3>
             <ul className="flex flex-col gap-4">
@@ -131,7 +131,7 @@ export default function Footer() {
           {/* Accreditations */}
           <div className="lg:col-span-2">
             <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
               TRUSTED BY
             </h3>
             <div className="grid grid-cols-1 gap-3">
