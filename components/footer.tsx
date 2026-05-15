@@ -76,6 +76,16 @@ export default function Footer() {
                 </div>
                 <span>NW2, North West London</span>
               </div>
+            </div>
+          </div>
+
+          {/* Services */}
+          <div className="lg:col-span-2">
+            <h3 className="font-sans font-semibold text-white mb-6 tracking-wide text-sm flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              SERVICES
+            </h3>
+            <ul className="flex flex-col gap-4">
               {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <FooterLinkClient href={link.href} label={link.label} />

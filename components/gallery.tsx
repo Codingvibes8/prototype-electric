@@ -10,7 +10,7 @@ const projects = [
   { src: '/images/gallery-6.jpg', title: 'Kitchen Lighting', category: 'Interior' },
 ]
 
-export default function Gallery() {
+export function Gallery() {
   return (
     <section id="gallery" className="relative py-24 md:py-32 bg-slate-50">
 
