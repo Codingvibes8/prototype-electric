@@ -21,7 +21,7 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export function Navigation() {
+export  function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
@@ -89,7 +89,7 @@ export function Navigation() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-red-700 backdrop-blur-lg shadow-lg border-b border-white/10'
+            ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent backdrop-blur-lg shadow-lg border-b border-white/10'
             : 'bg-transparent'
         }`}
       >
@@ -138,7 +138,7 @@ export function Navigation() {
             aria-label="Go to homepage"
           >
             <Image
-              src="/EJ-logo.png"
+              src="/images/EJ-logo.png"
               alt="Electric Jamez logo"
               width={48}
               height={48}
@@ -231,7 +231,7 @@ export function Navigation() {
             ))}
             <a
               href="tel:+447000000000"
-              className="bg-yellow-300 text-white rounded-lg flex items-center gap-2 px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
+              className="bg-red-800 text-white rounded-lg flex items-center gap-2 px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
             >
               <Phone className="w-4 h-4" />
               Call Now
@@ -311,7 +311,7 @@ export function Navigation() {
             ))}
             <a
               href="tel:+447000000000"
-              className="flex items-center gap-2 bg-yellow-300 text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
+              className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
             >
               <Phone className="w-5 h-5" />
               Call Now

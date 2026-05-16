@@ -1,16 +1,18 @@
 import type { Metadata, Viewport } from 'next'
-import { Nunito, Open_Sans } from 'next/font/google'
+import { Jost, Crimson_Pro } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _nunito = Nunito({
+const _jost = Jost({
   subsets: ['latin'],
-  variable: '--font-nunito',
+  variable: '--font-josh',
+  display: 'swap',
 })
 
-const _openSans = Open_Sans({
+const _crimsonPro = Crimson_Pro({
   subsets: ['latin'],
-  variable: '--font-open-sans',
+  variable: '--font-crimson-pro',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   icons: {
     icon: [
-      { url: '/EJ-logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/EJ-logo.png', sizes: '32x32', type: 'image/png' },
     ],
   },
   openGraph: {
@@ -81,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${_nunito.variable} ${_openSans.variable} scroll-smooth`}>
+    <html lang="en" className={`${_jost.variable} ${_crimsonPro.variable} scroll-smooth`}>
       <head>
         <script
           type="application/ld+json"

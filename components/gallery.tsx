@@ -12,10 +12,11 @@ const projects = [
 
 export function Gallery() {
   return (
-    <section id="gallery" className="relative py-24 md:py-32 bg-background">
+    <section id="gallery" className="relative py-24 md:py-32 bg-slate-50">
+
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center mb-16">
-          <span className="text-sm font-medium text-primary uppercase tracking-wider">
+          <span className="text-xl font-bold text-primary uppercase tracking-wider">
             Our Work
           </span>
           <h2 className="mt-3 font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-balance">
