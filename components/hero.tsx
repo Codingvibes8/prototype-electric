@@ -57,7 +57,7 @@ export function Hero() {
             href="tel:+447000000000"
             className="group relative bg-red-600 text-white rounded-xl flex items-center gap-3 px-10 py-5 font-bold text-xl transition-all shadow-[0_20px_50px_rgba(220,38,38,0.3)] hover:bg-red-700 hover:shadow-[0_20px_50px_rgba(220,38,38,0.5)] active:scale-95 overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-yellow-300-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             <Phone className="w-6 h-6 animate-pulse" />
             Get a Free Quote
           </Link>

@@ -231,7 +231,7 @@ export function Navigation() {
             ))}
             <a
               href="tel:+447000000000"
-              className="bg-red-800 text-white rounded-lg flex items-center gap-2 px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
+              className="bg-yellow-300 text-white rounded-lg flex items-center gap-2 px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
             >
               <Phone className="w-4 h-4" />
               Call Now
@@ -311,7 +311,7 @@ export function Navigation() {
             ))}
             <a
               href="tel:+447000000000"
-              className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
+              className="flex items-center gap-2 bg-yellow-300 text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
             >
               <Phone className="w-5 h-5" />
               Call Now
