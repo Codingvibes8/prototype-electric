@@ -94,6 +94,7 @@ export function Services() {
               summary={service.summary}
               details={service.details}
               index={index}
+              slug={generateSlug(service.title, LOCATIONS[0].name)}
             />
           ))}
         </div>

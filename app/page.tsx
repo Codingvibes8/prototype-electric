@@ -1,13 +1,13 @@
 import { Navigation } from '@/components/navigation'
-  import { Hero}  from '@/components/hero'
+import { Hero } from '@/components/hero'
 import { Services } from '@/components/services'
-import { FAQ } from '@/components/faq'
-import { CTABanner } from '@/components/cta-banner'
 import { Gallery } from '@/components/gallery'
 import { Contact } from '@/components/contact'
-import  Footer from '@/components/footer'
+import Footer from '@/components/footer'
 import { ChatAssistant } from '@/components/chat-assistant'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { StickyMobileCTA } from '@/components/sticky-mobile-cta'
+import Testimonials from '@/components/testimonials'
 
 export const metadata = {
   title: 'Electric Jamez | NAPIT Approved Electrician | North West London NW2',
@@ -30,6 +30,10 @@ export default function Home() {
           <Services />
         </ScrollReveal>
 
+        <ScrollReveal direction="right">
+          <Testimonials />
+        </ScrollReveal>
+
         <ScrollReveal direction="left">
           <Gallery />
         </ScrollReveal>
@@ -40,6 +44,7 @@ export default function Home() {
       </div>
 
       <Footer />
+      <StickyMobileCTA />
     </main>
   )
 }

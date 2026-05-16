@@ -14,6 +14,7 @@ export async function POST(request: Request) {
       title,
       company,
       email,
+      phone,
       reason,
       areaOfInterest,
       subject,
@@ -94,6 +95,10 @@ export async function POST(request: Request) {
             <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
             <td style="padding: 8px; border: 1px solid #ddd;">${email}</td>
           </tr>
+          ${phone ? `<tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
+          </tr>` : ''}
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd;"><strong>Reason for Contact:</strong></td>
             <td style="padding: 8px; border: 1px solid #ddd;">${reasonLabels[reason] || reason}</td>

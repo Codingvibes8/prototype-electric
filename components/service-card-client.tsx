@@ -26,9 +26,10 @@ interface ServiceCardClientProps {
   summary: string
   details: string
   index: number
+  slug: string
 }
 
-export function ServiceCardClient({ iconName, title, summary, details, index }: ServiceCardClientProps) {
+export function ServiceCardClient({ iconName, title, summary, details, index, slug }: ServiceCardClientProps) {
   const [expanded, setExpanded] = useState(false)
   const Icon = iconMap[iconName]
 
@@ -73,17 +74,27 @@ export function ServiceCardClient({ iconName, title, summary, details, index }: 
       {expanded && (
         <div className="mt-4 pt-4 border-t border-border">
           <p className="text-sm text-muted-foreground leading-relaxed">{details}</p>
-          <Link
-            href="#contact"
-            onClick={(e) => {
-              e.stopPropagation()
-              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
-          >
-            Get a Quote
-            <ChevronDown className="w-4 h-4 -rotate-90" />
-          </Link>
+          <div className="flex items-center gap-4 mt-4">
+            <Link
+              href="#contact"
+              onClick={(e) => {
+                e.stopPropagation()
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+            >
+              Get a Quote
+              <ChevronDown className="w-4 h-4 -rotate-90" />
+            </Link>
+            <Link
+              href={`/services/${slug}`}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Learn more
+              <ChevronDown className="w-3.5 h-3.5 -rotate-90" />
+            </Link>
+          </div>
         </div>
       )}
     </div>
