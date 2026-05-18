@@ -26,9 +26,9 @@ const quickLinks = [
 export default function Footer() {
   
   return (
-    <footer className="relative bg-red-300 overflow-hidden pt-20">
+    <footer className="relative overflow-hidden pt-20" style={{ backgroundColor: '#55565A' }}>
       {/* Top Gradient Border */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-[gradient-to-r from-transparent via-red-500/50 to-transparent]" />
 
       {/* Vibrant Background Accents */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-900/20 rounded-full blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-12">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32 pb-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-4 lg:pr-8">

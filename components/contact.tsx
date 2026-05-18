@@ -5,7 +5,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-24 md:py-32 overflow-hidden bg-white">
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24 mb-24">
           {/* Contact info (server-rendered) */}
           <div className="flex flex-col">

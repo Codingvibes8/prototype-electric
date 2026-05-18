@@ -95,7 +95,7 @@ export  function Navigation() {
       >
         {/* Top Header */}
         <div className={`hidden md:block w-full bg-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-[60px] opacity-100'}`}>
-          <div className="mx-auto flex max-w-7xl items-center justify-end px-6 h-full">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-full">
             {/* Contact Details (Desktop) */}
             <div className="flex gap-8 text-sm text-gray-600">
               <div className="flex items-center gap-2">

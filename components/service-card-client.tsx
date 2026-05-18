@@ -9,6 +9,7 @@ import {
   Sun,
   ClipboardCheck,
   ChevronDown,
+  Zap,
 } from 'lucide-react'
 
 const iconMap = {
@@ -18,6 +19,7 @@ const iconMap = {
   Droplets,
   Sun,
   ClipboardCheck,
+  Zap,
 }
 
 interface ServiceCardClientProps {

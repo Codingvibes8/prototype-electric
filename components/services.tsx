@@ -9,6 +9,7 @@ import {
   BadgeCheck,
   Receipt,
   PhoneCall,
+  Zap,
 } from 'lucide-react'
 import { ServiceCardClient } from './service-card-client'
 
@@ -70,6 +71,13 @@ export const services = [
     details:
       'Regular PAT testing is essential for workplace safety and insurance compliance. We test all portable electrical equipment, from computers and kettles to power tools and extension leads. Each appliance receives a pass/fail label, and you receive a comprehensive digital report for your records.',
   },
+  {
+    iconName: 'Zap' as const,
+    title: 'Solar Panel Installation & Repairs',
+    summary: 'Reduce your energy bills with professional solar panel installation and expert repair services.',
+    details:
+      'We install high-efficiency solar PV systems for homes and businesses across North West London. From initial survey and design through to MCS-certified installation and grid connection, we handle everything. We also diagnose and repair existing solar systems — inverter faults, panel damage, wiring issues, and performance optimisation.',
+  },
 ]
 
 const usps = [
@@ -98,7 +106,7 @@ const usps = [
 export function Services() {
   return (
     <section id="services" className="relative py-24 md:py-32 bg-slate-50">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32">
         <div className="text-center mb-12 animate-in fade-in slide-in-from-top-4 duration-1000 fill-mode-both">
           <span className="text-sm font-semibold text-gray-700 uppercase tracking-[0.2em]">
             Residential Electrical Services
