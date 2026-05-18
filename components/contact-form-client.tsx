@@ -6,16 +6,11 @@ import { Send, CheckCircle, Loader2, ChevronRight } from 'lucide-react'
 export function ContactFormClient() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [formData, setFormData] = useState({
-    firstName: '',
-    title: '',
-    company: '',
+    name: '',
     email: '',
-    reason: '',
-    areaOfInterest: '',
-    subject: '',
+    phone: '',
+    service: '',
     message: '',
-    budgetRange: '',
-    timeline: '',
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -23,8 +18,8 @@ export function ContactFormClient() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required'
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required'
     }
 
     if (!formData.email.trim()) {
@@ -34,18 +29,6 @@ export function ContactFormClient() {
       if (!emailRegex.test(formData.email)) {
         newErrors.email = 'Please enter a valid email address'
       }
-    }
-
-    if (!formData.reason) {
-      newErrors.reason = 'Please select a reason for contact'
-    }
-
-    if (!formData.areaOfInterest) {
-      newErrors.areaOfInterest = 'Please select an area of interest'
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required'
     }
 
     if (!formData.message.trim()) {
