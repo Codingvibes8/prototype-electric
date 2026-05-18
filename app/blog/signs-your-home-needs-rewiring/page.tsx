@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
+import Footer from '@/components/footer'
 import { Calendar, Clock, ArrowLeft, Phone, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 

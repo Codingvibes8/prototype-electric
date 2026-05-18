@@ -254,7 +254,7 @@ export  function Navigation() {
 
       {/* Mobile nav overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl md:hidden">
+        <div className="fixed inset-0 z-40 bg-red-400 backdrop-blur-xl md:hidden">
           <div className="flex flex-col items-center justify-center h-full gap-6">
             {/* Mobile services accordion */}
             <div className="flex flex-col items-center">
@@ -303,7 +303,7 @@ export  function Navigation() {
                 href={link.href}
                 onClick={() => setIsMobileOpen(false)}
                 className={`text-2xl font-serif font-bold transition-colors ${
-                  pathname === link.href ? 'text-primary' : 'text-foreground hover:text-primary'
+                  pathname === link.href ? 'text-slate-50' : 'text-foreground hover:text-primary'
                 }`}
               >
                 {link.label}

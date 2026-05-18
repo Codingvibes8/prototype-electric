@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
+import { createServerParamsForServerSegment } from 'next/dist/server/app-render/entry-base'
+import { createRoot } from 'react-dom/client'
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
 const CENTER = { lat: 51.556549, lng: -0.215147 } // Cricklewood, NW2, London
@@ -53,3 +55,4 @@ declare global {
     google: any
   }
 }
+
