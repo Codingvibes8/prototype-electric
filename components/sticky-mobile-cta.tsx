@@ -2,6 +2,7 @@
 
 import { Phone, Mail } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { trackPhoneClick, trackCTAClick } from '@/lib/analytics';
 
 export function StickyMobileCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,6 +31,7 @@ export function StickyMobileCTA() {
       {/* Call CTA */}
       <a
         href="tel:+447000000000"
+        onClick={() => trackPhoneClick('sticky_mobile_cta')}
         className="flex items-center justify-center w-14 h-14 rounded-full bg-red-600 text-white shadow-lg hover:bg-red-700 transition-all transform hover:scale-105"
         aria-label="Call us now"
       >
@@ -39,6 +41,7 @@ export function StickyMobileCTA() {
       {/* Message CTA */}
       <a
         href="#contact"
+        onClick={() => trackCTAClick('sticky_mobile_contact')}
         className="flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105"
         aria-label="Send us a message"
       >
