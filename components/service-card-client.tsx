@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import { useState } from 'react'
 import {
@@ -9,6 +10,7 @@ import {
   Sun,
   ClipboardCheck,
   ChevronDown,
+  HelpCircle, // Add a fallback icon
 } from 'lucide-react'
 
 const iconMap = {
@@ -31,7 +33,8 @@ interface ServiceCardClientProps {
 
 export function ServiceCardClient({ iconName, title, summary, details, index, slug }: ServiceCardClientProps) {
   const [expanded, setExpanded] = useState(false)
-  const Icon = iconMap[iconName]
+  // Get the icon component with fallback
+  const Icon = iconMap[iconName] || HelpCircle
 
   return (
     <div
@@ -55,7 +58,7 @@ export function ServiceCardClient({ iconName, title, summary, details, index, sl
       {/* Icon and title */}
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
-          <Icon className="w-6 h-6 text-primary" />
+          {Icon && <Icon className="w-6 h-6 text-primary" />}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">

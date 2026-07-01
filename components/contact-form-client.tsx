@@ -24,6 +24,7 @@ const SERVICE_OPTIONS = [
   { value: 'Flood Damage Assessment', label: 'Flood Damage Assessment' },
   { value: 'Outdoor Lighting & Heating', label: 'Outdoor Lighting & Heating' },
   { value: 'PAT Testing', label: 'PAT Testing' },
+  { value: 'Solar Panel Installation', label: 'Solar Panel Installation' },
   { value: 'General Electrical Work', label: 'General Electrical Work' },
   { value: 'Other', label: 'Other' },
 ]

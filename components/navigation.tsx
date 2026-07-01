@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, Phone, ChevronDown, Wind, Car, ShieldCheck, Droplets, Sun, ClipboardCheck, MapPin, Clock } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, Wind, Car, ShieldCheck, Droplets, Sun, ClipboardCheck, MapPin, Clock, Zap } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,6 +13,7 @@ const serviceItems = [
   { icon: Droplets, label: 'Flood Damage Assessment' },
   { icon: Sun, label: 'Outdoor Lighting & Heating' },
   { icon: ClipboardCheck, label: 'PAT Testing' },
+  { icon: Zap, label: 'Solar Panel Installation' },
 ]
 
 const navLinks = [

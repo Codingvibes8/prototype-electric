@@ -11,6 +11,7 @@ const serviceLinks = [
   { label: 'Flood Damage Assessment', href: '#services' },
   { label: 'Outdoor Lighting', href: '#services' },
   { label: 'PAT Testing', href: '#services' },
+  { label: 'Solar Panel Installation', href: '#services' },
 ]
 
 const quickLinks = [
@@ -26,9 +27,9 @@ const quickLinks = [
 export default function Footer() {
   
   return (
-    <footer className="relative bg-red-300 overflow-hidden pt-20">
+    <footer className="relative bg-gray-800 overflow-hidden pt-20">
       {/* Top Gradient Border */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gray-700" />
 
       {/* Vibrant Background Accents */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">

@@ -9,6 +9,7 @@ import {
   BadgeCheck,
   Receipt,
   PhoneCall,
+  Zap,
 } from 'lucide-react'
 import { ServiceCardClient } from './service-card-client'
 
@@ -69,6 +70,13 @@ export const services = [
     summary: 'Full Portable Appliance Testing with pass/fail labels and a digital compliance report.',
     details:
       'Regular PAT testing is essential for workplace safety and insurance compliance. We test all portable electrical equipment, from computers and kettles to power tools and extension leads. Each appliance receives a pass/fail label, and you receive a comprehensive digital report for your records.',
+  },
+  {
+    iconName: 'Zap' as const,
+    title: 'Solar Panel Installation',
+    summary: 'Modern solar panel systems for residential and commercial properties — reduce bills and energy dependence.',
+    details:
+      'Harness the power of the sun with our professional solar panel installation service. We design and install complete solar PV systems tailored to your property and energy needs. From site assessment and system sizing to MCS registration and grid connection, we handle every step. Our installations include battery storage options, monitoring systems, and comprehensive warranties for long-term peace of mind.',
   },
 ]
 

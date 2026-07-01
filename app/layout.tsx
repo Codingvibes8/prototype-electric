@@ -110,6 +110,7 @@ export default function RootLayout({
                   { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PAT Testing' } },
                   { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Outdoor Lighting & Heating' } },
                   { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Flood Damage Electrical Assessment' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Solar Panel Installation' } },
                 ],
               },
             }),

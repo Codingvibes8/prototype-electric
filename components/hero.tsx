@@ -19,7 +19,7 @@ export function Hero() {
           className="object-cover"
         />
         {/* Dark overlay for text legibility */}
-         <div className="absolute inset-0 bg-black/50" />
+        
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(1,13,26,0.4)] via-transparent to-[rgba(0,30,60,0.6)]" />
       </div>
 
