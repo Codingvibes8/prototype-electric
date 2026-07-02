@@ -8,6 +8,7 @@ import { ChatAssistant } from '@/components/chat-assistant'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { StickyMobileCTA } from '@/components/sticky-mobile-cta'
 import {Testimonials} from '@/components/testimonials'
+import { FAQ } from '@/components/faq'
 
 export const metadata = {
   title: 'Electric Jamez | NAPIT Approved Electrician | North West London NW2',
@@ -32,6 +33,10 @@ export default function Home() {
 
         <ScrollReveal direction="right">
           <Testimonials />
+        </ScrollReveal>
+
+            <ScrollReveal>
+          <FAQ />
         </ScrollReveal>
 
         <ScrollReveal direction="left">

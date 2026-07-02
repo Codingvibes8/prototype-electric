@@ -246,22 +246,22 @@ export  function Navigation() {
             aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileOpen}
           >
-            {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMobileOpen ? <X className="w-10 h-10 text-gray-900" /> : <Menu className="w-10 h-10 text-gray-900" />}
           </button>
         </nav>
       </header>
 
       {/* Mobile nav overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-40 bg-gray-800 backdrop-blur-xl md:hidden">
-          <div className="flex flex-col items-center justify-center h-full gap-6 mt-10">
+        <div className="fixed inset-0 z-40 bg-gray-600 backdrop-blur-xl md:hidden">
+          <div className="flex flex-col items-center justify-center h-full gap-6 mt-20">
             
         {/* Mobile services accordion */}
             <div className="flex flex-col items-center">
               <button
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
                 className={`flex items-center gap-2 text-2xl font-serif font-bold transition-colors ${
-                  activeSection === '#services' ? 'text-primary' : 'text-foreground hover:text-primary'
+                  activeSection === '#services' ? 'text-white' : 'text-foreground hover:text-primary'
                 }`}
               >
                 Services
@@ -277,7 +277,7 @@ export  function Navigation() {
                         setIsMobileOpen(false)
                         setIsMobileServicesOpen(false)
                       }}
-                      className="flex items-center gap-2 text-base text-muted-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-base text-slate-50 hover:text-slate-300 transition-colors"
                     >
                       <item.icon className="w-4 h-4 text-primary" />
                       {item.label}
@@ -291,7 +291,7 @@ export  function Navigation() {
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className={`text-2xl font-serif font-bold transition-colors ${
+                className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
                   activeSection === link.href ? 'text-primary' : 'text-foreground hover:text-primary'
                 }`}
               >
@@ -316,11 +316,11 @@ export  function Navigation() {
     
 
             <a
-              href="tel:+447000000000"
-              className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
+              href="tel:+44 20 7946 0958"
+              className="flex items-center gap-2 bg-red-800 text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
             >
               <Phone className="w-5 h-5" />
-              Call Now
+              Call Now  0207 946 0958
             </a>
           </div>
         </div>
