@@ -253,9 +253,10 @@ export  function Navigation() {
 
       {/* Mobile nav overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-40 bg-red-400 backdrop-blur-xl md:hidden">
-          <div className="flex flex-col items-center justify-center h-full gap-6">
-            {/* Mobile services accordion */}
+        <div className="fixed inset-0 z-40 bg-gray-800 backdrop-blur-xl md:hidden">
+          <div className="flex flex-col items-center justify-center h-full gap-6 mt-10">
+            
+        {/* Mobile services accordion */}
             <div className="flex flex-col items-center">
               <button
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
@@ -312,6 +313,8 @@ export  function Navigation() {
                 {link.label}
               </Link>
             ))}
+    
+
             <a
               href="tel:+447000000000"
               className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg mt-4"
