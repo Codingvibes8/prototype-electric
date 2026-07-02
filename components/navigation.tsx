@@ -20,6 +20,22 @@ const serviceItems = [
   href: `/services/${generateSlug(item.label, LOCATIONS[0].name)}`,
 }))
 
+
+const locationItems = [
+  'Cricklewood',
+  'Willesden',
+  'Dollis Hill',
+  'Neasden',
+  'Kilburn',
+  'West Hampstead',
+  'Brondesbury',
+  'Kensal Rise',
+].map((name) => ({
+  icon: MapPin,
+  label: name,
+  href: `/location/${name.toLowerCase().replace(/ /g, '-')}`,   // was /location#...
+}))
+
 const navLinks = [
   { label: 'FAQ', href: '#faq' },
   { label: 'Gallery', href: '#gallery' },
@@ -32,6 +48,9 @@ export  function Navigation() {
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
   const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+   const [isLocationOpen, setIsLocationOpen] = useState(false)  
+   const locationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)  // ADD
+  const [isMobileLocationOpen, setIsMobileLocationOpen] = useState(false)     // ADD (for mobile)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -87,6 +106,14 @@ export  function Navigation() {
 
   const handleDropdownLeave = () => {
     dropdownTimeout.current = setTimeout(() => setIsDropdownOpen(false), 150)
+  }
+    const handleLocationEnter = () => {
+    if (locationTimeout.current) clearTimeout(locationTimeout.current)
+    setIsLocationOpen(true)
+  }
+
+  const handleLocationLeave = () => {
+    locationTimeout.current = setTimeout(() => setIsLocationOpen(false), 150)
   }
 
   return (
@@ -210,24 +237,56 @@ export  function Navigation() {
                 {link.label}
               </button>
             ))}
-            {[
-              { label: 'Location', href: '/location' },
-              { label: 'Blog', href: '/blog' },
-            ].map((link) => (
+        {/* Location dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={handleLocationEnter}
+              onMouseLeave={handleLocationLeave}
+            >
               <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === link.href
+                href="/location"
+                className={`flex items-center gap-1 text-sm font-medium cursor-pointer transition-colors duration-200 ${
+                  pathname === '/location'
                     ? 'text-white'
-                    : isScrolled
-                      ? 'text-white/80 hover:text-white'
-                      : 'text-white/80 hover:text-white'
+                    : 'text-white/80 hover:text-white'
                 }`}
               >
-                {link.label}
+                Location
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isLocationOpen ? 'rotate-180' : ''}`} />
               </Link>
-            ))}
+
+              {/* Dropdown menu */}
+              <div
+                className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
+                  isLocationOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                }`}
+              >
+                <div className="w-64 bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-xl p-2">
+                  {locationItems.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsLocationOpen(false)}
+                      className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left text-sm text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors cursor-pointer"
+                    >
+                      <item.icon className="w-4 h-4 text-primary shrink-0" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href="/blog"
+              className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
+                pathname === '/blog'
+                  ? 'text-white'
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
+              Blog
+            </Link>
             <a
               href="tel:+447000000000"
               className="bg-red-800 text-white rounded-lg flex items-center gap-2 px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
@@ -298,22 +357,46 @@ export  function Navigation() {
                 {link.label}
               </button>
             ))}
-            {[
-              { label: 'Location', href: '/location' },
-              { label: 'Blog', href: '/blog' },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileOpen(false)}
-                className={`text-2xl font-serif font-bold transition-colors ${
-                  pathname === link.href ? 'text-slate-50' : 'text-foreground hover:text-primary'
+                       {/* Mobile location accordion */}
+            <div className="flex flex-col items-center">
+              <button
+                onClick={() => setIsMobileLocationOpen(!isMobileLocationOpen)}
+                className={`flex items-center gap-2 text-2xl font-serif font-bold transition-colors ${
+                  pathname === '/location' ? 'text-white' : 'text-foreground hover:text-primary'
                 }`}
               >
-                {link.label}
-              </Link>
-            ))}
-    
+                Location
+                <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${isMobileLocationOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isMobileLocationOpen && (
+                <div className="flex flex-col items-center gap-3 mt-4">
+                  {locationItems.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => {
+                        setIsMobileOpen(false)
+                        setIsMobileLocationOpen(false)
+                      }}
+                      className="flex items-center gap-2 text-base text-slate-50 hover:text-slate-300 transition-colors"
+                    >
+                      <item.icon className="w-4 h-4 text-primary" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/blog"
+              onClick={() => setIsMobileOpen(false)}
+              className={`text-2xl font-serif font-bold transition-colors ${
+                pathname === '/blog' ? 'text-slate-50' : 'text-foreground hover:text-primary'
+              }`}
+            >
+              Blog
+            </Link>
 
             <a
               href="tel:+44 20 7946 0958"

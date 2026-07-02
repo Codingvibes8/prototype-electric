@@ -3,6 +3,7 @@ import { Navigation } from '@/components/navigation'
 import Footer from '@/components/footer'
 import { MapPin, Phone, Clock, CheckCircle, Zap } from 'lucide-react'
 import Link from 'next/link'
+import { areas, locationSlug } from '@/components/locations' 
 
 export const metadata: Metadata = {
   title: 'Electrician in North West London NW2 | Areas We Cover | ElectricJamex',
@@ -149,10 +150,11 @@ export default function LocationPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {areas.map((area) => (
-              <div
+              {areas.map((area) => (
+              <Link
                 key={area.name}
-                className="bg-card border border-border rounded-xl p-6 hover:border-primary/40 transition-colors"
+                href={`/location/${locationSlug(area.name)}`}
+                className="group bg-card border border-border rounded-xl p-6 hover:border-primary/40 transition-colors"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-4 h-4 text-primary" />
@@ -162,7 +164,7 @@ export default function LocationPage() {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
