@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X, Phone, ChevronDown, Wind, Car, ShieldCheck, Droplets, Sun, ClipboardCheck, MapPin, Clock, Zap } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { LOCATIONS, generateSlug } from './services'
 
 const serviceItems = [
   { icon: Wind, label: 'Air Conditioning Service' },
@@ -14,7 +15,10 @@ const serviceItems = [
   { icon: Sun, label: 'Outdoor Lighting & Heating' },
   { icon: ClipboardCheck, label: 'PAT Testing' },
   { icon: Zap, label: 'Solar Panel Installation' },
-]
+].map((item) => ({
+  ...item,
+  href: `/services/${generateSlug(item.label, LOCATIONS[0].name)}`,
+}))
 
 const navLinks = [
   { label: 'FAQ', href: '#faq' },
@@ -91,8 +95,8 @@ export  function Navigation() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300  bg-gray-300`}
       >
         {/* Top Header */}
-        <div className={` w-full bg-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-[60px] opacity-100'}`}>
-          <div className="mx-auto flex max-w-7xl items-center justify-end px-6 h-full">
+        <div className={` w-full bg-white transition-all duration-300 overflow-hidden h-[60px] opacity-100 ${isScrolled ? 'md:h-0 md:opacity-0' : 'md:h-[60px] md:opacity-100'}`}>
+          <div className="mx-auto flex max-w-7xl items-center justify-center md:justify-end px-6 h-full">
             {/* Contact Details (Desktop) */}
             <div className="flex gap-8 text-sm text-gray-600">
               <div className="flex items-center gap-2">
@@ -157,7 +161,7 @@ export  function Navigation() {
             >
               <button
                 onClick={() => scrollToSection('#services')}
-                className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 ${
+                className={`flex items-center gap-1 text-sm font-medium cursor-pointer transition-colors duration-200 ${
                   activeSection === '#services'
                     ? 'text-white'
                     : isScrolled
@@ -177,17 +181,15 @@ export  function Navigation() {
               >
                 <div className="w-72 bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-xl p-2">
                   {serviceItems.map((item) => (
-                    <button
+                    <Link
                       key={item.label}
-                      onClick={() => {
-                        setIsDropdownOpen(false)
-                        scrollToSection('#services')
-                      }}
-                      className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left text-sm text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                      href={item.href}
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left text-sm text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors cursor-pointer"
                     >
                       <item.icon className="w-4 h-4 text-primary shrink-0" />
                       {item.label}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -197,7 +199,7 @@ export  function Navigation() {
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className={`text-sm font-medium transition-colors duration-200 ${
+                className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
                   activeSection === link.href
                     ? 'text-white'
                     : isScrolled
@@ -267,14 +269,18 @@ export  function Navigation() {
               {isMobileServicesOpen && (
                 <div className="flex flex-col items-center gap-3 mt-4">
                   {serviceItems.map((item) => (
-                    <button
+                    <Link
                       key={item.label}
-                      onClick={() => scrollToSection('#services')}
+                      href={item.href}
+                      onClick={() => {
+                        setIsMobileOpen(false)
+                        setIsMobileServicesOpen(false)
+                      }}
                       className="flex items-center gap-2 text-base text-muted-foreground hover:text-primary transition-colors"
                     >
                       <item.icon className="w-4 h-4 text-primary" />
                       {item.label}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               )}

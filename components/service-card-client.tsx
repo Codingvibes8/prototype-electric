@@ -9,6 +9,7 @@ import {
   Droplets,
   Sun,
   ClipboardCheck,
+  Zap,
   ChevronDown,
   HelpCircle, // Add a fallback icon
 } from 'lucide-react'
@@ -20,6 +21,7 @@ const iconMap = {
   Droplets,
   Sun,
   ClipboardCheck,
+  Zap,
 }
 
 interface ServiceCardClientProps {
