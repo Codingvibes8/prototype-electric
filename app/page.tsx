@@ -7,7 +7,7 @@ import Footer from '@/components/footer'
 import { ChatAssistant } from '@/components/chat-assistant'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { StickyMobileCTA } from '@/components/sticky-mobile-cta'
-import Testimonials from '@/components/testimonials'
+import {Testimonials} from '@/components/testimonials'
 
 export const metadata = {
   title: 'Electric Jamez | NAPIT Approved Electrician | North West London NW2',

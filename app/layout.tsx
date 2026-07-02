@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Jost, Crimson_Pro } from 'next/font/google'
+import { Jost, Crimson_Pro, Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const _jost = Jost({
   subsets: ['latin'],
@@ -83,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${_jost.variable} ${_crimsonPro.variable} scroll-smooth`}>
+    <html lang="en" className={cn("scroll-smooth", _jost.variable, _crimsonPro.variable, "font-sans", geist.variable)}>
       <head>
         <script
           type="application/ld+json"

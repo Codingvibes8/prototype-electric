@@ -88,14 +88,10 @@ export  function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent backdrop-blur-lg shadow-lg border-b border-white/10'
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300  bg-gray-300`}
       >
         {/* Top Header */}
-        <div className={`hidden md:block w-full bg-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-[60px] opacity-100'}`}>
+        <div className={` w-full bg-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-[60px] opacity-100'}`}>
           <div className="mx-auto flex max-w-7xl items-center justify-end px-6 h-full">
             {/* Contact Details (Desktop) */}
             <div className="flex gap-8 text-sm text-gray-600">
@@ -146,7 +142,7 @@ export  function Navigation() {
               className="rounded-full"
             />
 
-            <h1 className="text-2xl font-bold text-white transition-colors duration-200 group-hover:text-white/80 tracking-tight">
+            <h1 className="text-2xl font-bold text-red-700 transition-colors duration-200 group-hover:text-white/80 tracking-tight">
               Electric Jamez
             </h1>
           </button>
