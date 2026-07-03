@@ -20,8 +20,7 @@ export default function Home() {
     <main className="relative flex min-h-screen flex-col overflow-hidden">
       <Navigation />
       
-      {/* Hero doesn't always need reveal as it's the first thing seen, 
-          but adding a subtle fade can help transitions */}
+      
       <ScrollReveal direction="none" duration={1.2}>
         <Hero />
       </ScrollReveal>
