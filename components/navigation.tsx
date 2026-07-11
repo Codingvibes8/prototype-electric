@@ -190,10 +190,10 @@ export  function Navigation() {
                 onClick={() => scrollToSection('#services')}
                 className={`flex items-center gap-1 text-sm font-medium cursor-pointer transition-colors duration-200 ${
                   activeSection === '#services'
-                    ? 'text-white'
+                    ? 'text-gray-900'
                     : isScrolled
-                      ? 'text-white/80 hover:text-white'
-                      : 'text-white/80 hover:text-white'
+                      ? 'text-gray-700 hover:text-gray-900'
+                      : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 Services
@@ -228,10 +228,10 @@ export  function Navigation() {
                 onClick={() => scrollToSection(link.href)}
                 className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
                   activeSection === link.href
-                    ? 'text-white'
+                    ? 'text-gray-900'
                     : isScrolled
-                      ? 'text-white/80 hover:text-white'
-                      : 'text-white/80 hover:text-white'
+                      ? 'text-gray-700 hover:text-gray-900'
+                      : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {link.label}
@@ -247,8 +247,8 @@ export  function Navigation() {
                 href="/location"
                 className={`flex items-center gap-1 text-sm font-medium cursor-pointer transition-colors duration-200 ${
                   pathname === '/location'
-                    ? 'text-white'
-                    : 'text-white/80 hover:text-white'
+                    ? 'text-gray-900'
+                    : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 Location
@@ -281,8 +281,8 @@ export  function Navigation() {
               href="/blog"
               className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
                 pathname === '/blog'
-                  ? 'text-white'
-                  : 'text-white/80 hover:text-white'
+                  ? 'text-gray-900'
+                  : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               Blog
@@ -320,7 +320,7 @@ export  function Navigation() {
               <button
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
                 className={`flex items-center gap-2 text-2xl font-serif font-bold transition-colors ${
-                  activeSection === '#services' ? 'text-white' : 'text-foreground hover:text-primary'
+                  activeSection === '#services' ? 'text-white' : 'text-white hover:text-white/80'
                 }`}
               >
                 Services
@@ -336,7 +336,7 @@ export  function Navigation() {
                         setIsMobileOpen(false)
                         setIsMobileServicesOpen(false)
                       }}
-                      className="flex items-center gap-2 text-base text-slate-50 hover:text-slate-300 transition-colors"
+                      className="flex items-center gap-2 text-base text-white hover:text-white/80 transition-colors"
                     >
                       <item.icon className="w-4 h-4 text-primary" />
                       {item.label}
@@ -351,7 +351,7 @@ export  function Navigation() {
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
                 className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
-                  activeSection === link.href ? 'text-primary' : 'text-foreground hover:text-primary'
+                  activeSection === link.href ? 'text-white' : 'text-white hover:text-white/80'
                 }`}
               >
                 {link.label}
@@ -362,7 +362,7 @@ export  function Navigation() {
               <button
                 onClick={() => setIsMobileLocationOpen(!isMobileLocationOpen)}
                 className={`flex items-center gap-2 text-2xl font-serif font-bold transition-colors ${
-                  pathname === '/location' ? 'text-white' : 'text-foreground hover:text-primary'
+                  pathname === '/location' ? 'text-white' : 'text-white hover:text-white/80'
                 }`}
               >
                 Location
@@ -378,7 +378,7 @@ export  function Navigation() {
                         setIsMobileOpen(false)
                         setIsMobileLocationOpen(false)
                       }}
-                      className="flex items-center gap-2 text-base text-slate-50 hover:text-slate-300 transition-colors"
+                      className="flex items-center gap-2 text-base text-white hover:text-white/80 transition-colors"
                     >
                       <item.icon className="w-4 h-4 text-primary" />
                       {item.label}
@@ -392,7 +392,7 @@ export  function Navigation() {
               href="/blog"
               onClick={() => setIsMobileOpen(false)}
               className={`text-2xl font-serif font-bold transition-colors ${
-                pathname === '/blog' ? 'text-slate-50' : 'text-foreground hover:text-primary'
+                pathname === '/blog' ? 'text-white' : 'text-white hover:text-white/80'
               }`}
             >
               Blog
