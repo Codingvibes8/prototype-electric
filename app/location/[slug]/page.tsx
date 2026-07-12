@@ -57,16 +57,16 @@ export default async function LocationDetailPage({
         <div className="absolute inset-0 circuit-grid opacity-30" />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
-            <Link href="/" className="hover:text-primary transition-colors">
+          <nav className="flex items-center gap-2 text-sm text-white/80 mb-8">
+            <Link href="/" className="text-white/90 hover:text-primary transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link href="/location" className="hover:text-primary transition-colors">
+            <ChevronRight className="w-4 h-4 text-white/70" />
+            <Link href="/location" className="text-white/90 hover:text-primary transition-colors">
               Areas We Cover
             </Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-white font-medium">{area.name}</span>
+            <ChevronRight className="w-4 h-4 text-white/70" />
+            <span className="text-white font-semibold">{area.name}</span>
           </nav>
 
           <div className="text-center">
