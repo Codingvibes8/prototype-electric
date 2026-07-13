@@ -22,7 +22,7 @@ export function Testimonials() {
             Reviews
           </span>
           <h2 className="mt-3 font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-balance">
-            What North West London <span className="text-accent">says</span>
+            What North West London <span className="text-gray-800">says</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
             More than a decade of honest, reliable electrical work — in the words

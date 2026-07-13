@@ -127,7 +127,7 @@ export function Services() {
               className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 shadow-sm"
             >
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-5 h-5 text-primary" />
+                <Icon className="w-8 h-8 text-red-800" />
               </div>
               <div>
                 <p className="font-semibold text-sm text-foreground">{title}</p>

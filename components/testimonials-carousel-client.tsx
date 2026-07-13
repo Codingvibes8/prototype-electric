@@ -21,7 +21,7 @@ function Stars({ rating }: { rating: number }) {
           key={i}
           className={
             i < rating
-              ? 'w-5 h-5 fill-accent text-accent'
+              ? 'w-5 h-5 fill-yellow-500 text-yellow-500'
               : 'w-5 h-5 text-muted-foreground/40'
           }
           aria-hidden="true"
@@ -82,7 +82,7 @@ export function TestimonialsCarouselClient({
                   aria-hidden="true"
                 />
                 <div className="relative flex flex-col items-center gap-6">
-                  <Stars rating={t.rating} />
+                  <Stars rating={t.rating} className="text-yellow-500" />
                   <blockquote className="font-serif text-xl md:text-2xl lg:text-[1.7rem] leading-relaxed text-foreground text-pretty max-w-2xl">
                     “{t.quote}”
                   </blockquote>
@@ -114,9 +114,9 @@ export function TestimonialsCarouselClient({
             onClick={() => api?.scrollTo(i)}
             aria-label={`Go to review ${i + 1}`}
             aria-current={current === i}
-            className={`h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+            className={`h-2 cursor-pointer rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
               current === i
-                ? 'w-6 bg-accent'
+                ? 'w-6 bg-gray-700'
                 : 'w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60'
             }`}
           />
