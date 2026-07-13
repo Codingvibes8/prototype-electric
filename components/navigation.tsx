@@ -36,12 +36,6 @@ const locationItems = [
   href: `/location/${name.toLowerCase().replace(/ /g, '-')}`,   // was /location#...
 }))
 
-const navLinks = [
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
-]
-
 export  function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -123,7 +117,7 @@ export  function Navigation() {
       >
         {/* Top Header */}
         <div className={` w-full bg-white transition-all duration-300 overflow-hidden h-[60px] opacity-100 ${isScrolled ? 'md:h-0 md:opacity-0' : 'md:h-[60px] md:opacity-100'}`}>
-          <div className="mx-auto flex max-w-7xl items-center justify-center md:justify-end px-6 h-full">
+          <div className="mx-auto flex max-w-7xl items-center justify-center px-6 h-full">
             {/* Contact Details (Desktop) */}
             <div className="flex gap-8 text-sm text-gray-600">
               <div className="flex items-center gap-2">
@@ -222,22 +216,19 @@ export  function Navigation() {
               </div>
             </div>
 
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
-                  activeSection === link.href
-                    ? 'text-gray-900'
-                    : isScrolled
-                      ? 'text-gray-700 hover:text-gray-900'
-                      : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-        {/* Location dropdown */}
+            {/* Contact */}
+            <button
+              onClick={() => scrollToSection('#contact')}
+              className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
+                activeSection === '#contact'
+                  ? 'text-gray-900'
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Contact
+            </button>
+
+            {/* Location dropdown */}
             <div
               className="relative"
               onMouseEnter={handleLocationEnter}
@@ -276,6 +267,30 @@ export  function Navigation() {
                 </div>
               </div>
             </div>
+
+            {/* Gallery */}
+            <button
+              onClick={() => scrollToSection('#gallery')}
+              className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
+                activeSection === '#gallery'
+                  ? 'text-gray-900'
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Gallery
+            </button>
+
+            {/* FAQ */}
+            <button
+              onClick={() => scrollToSection('#faq')}
+              className={`text-sm font-medium cursor-pointer transition-colors duration-200 ${
+                activeSection === '#faq'
+                  ? 'text-gray-900'
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              FAQ
+            </button>
 
             <Link
               href="/blog"
@@ -346,17 +361,16 @@ export  function Navigation() {
               )}
             </div>
 
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
-                  activeSection === link.href ? 'text-white' : 'text-white hover:text-white/80'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
+            {/* Mobile Contact */}
+            <button
+              onClick={() => scrollToSection('#contact')}
+              className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
+                activeSection === '#contact' ? 'text-white' : 'text-white hover:text-white/80'
+              }`}
+            >
+              Contact
+            </button>
+
                        {/* Mobile location accordion */}
             <div className="flex flex-col items-center">
               <button
@@ -387,6 +401,26 @@ export  function Navigation() {
                 </div>
               )}
             </div>
+
+            {/* Mobile Gallery */}
+            <button
+              onClick={() => scrollToSection('#gallery')}
+              className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
+                activeSection === '#gallery' ? 'text-white' : 'text-white hover:text-white/80'
+              }`}
+            >
+              Gallery
+            </button>
+
+            {/* Mobile FAQ */}
+            <button
+              onClick={() => scrollToSection('#faq')}
+              className={`text-2xl cursor-pointer font-serif font-bold transition-colors ${
+                activeSection === '#faq' ? 'text-white' : 'text-white hover:text-white/80'
+              }`}
+            >
+              FAQ
+            </button>
 
             <Link
               href="/blog"

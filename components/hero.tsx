@@ -47,7 +47,7 @@ export function Hero() {
         </h1>
 
         {/* Subheading */}
-        <p className="mt-8 text-lg md:text-xl lg:text-2xl text-white/90 font-medium max-w-3xl mx-auto text-pretty leading-relaxed drop-shadow-md">
+        <p className="mt-8 text-lg md:text-xl lg:text-2xl text-white font-medium max-w-3xl mx-auto text-pretty leading-relaxed drop-shadow-lg">
           NAPIT approved and Which? Trusted Trader electrician serving NW2 and surrounding areas.
           Powering your home safely with over 15 years of expert excellence.
         </p>

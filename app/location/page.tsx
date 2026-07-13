@@ -39,15 +39,15 @@ export default function LocationPage() {
       <section className="relative pt-32 pb-20 bg-deep-dark overflow-hidden">
         <div className="absolute inset-0 circuit-grid opacity-30" />
         <div className="relative mx-auto max-w-7xl px-6 text-center">
-          <span className="inline-flex items-center gap-2 text-sm font-medium text-primary uppercase tracking-wider mb-4">
-            <MapPin className="w-4 h-4" />
+          <span className="inline-flex pt-32 items-center gap-2 text-sm font-medium text-primary uppercase tracking-wider mb-4">
+            <MapPin className="w-8 h-8" />
             Areas We Cover
           </span>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-white text-balance leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 text-balance leading-tight">
             Your Local Electrician in{' '}
-            <span className="text-accent glow-text">North West London</span>
+            <span className="text-gray-900 glow-text">North West London</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-2xl mx-auto text-pretty leading-relaxed">
+          <p className="mt-6 text-lg md:text-xl text-gray-800 max-w-2xl mx-auto text-pretty leading-relaxed">
             Based in NW2, we serve Cricklewood and the surrounding North West London area with
             fast, professional, and fully certified electrical services.
           </p>
@@ -123,10 +123,10 @@ export default function LocationPage() {
       <section className="py-20 bg-deep-dark border-t border-border">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <Zap className="w-10 h-10 text-primary mx-auto mb-4" />
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             Need an Electrician in Your Area?
           </h2>
-          <p className="text-white/70 mb-8 max-w-xl mx-auto">
+          <p className="text-gray-800 mb-8 max-w-xl mx-auto">
             {"Don't see your area listed? We likely still cover it. Get in touch for a free, no-obligation quote."}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

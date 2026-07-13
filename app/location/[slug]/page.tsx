@@ -57,16 +57,16 @@ export default async function LocationDetailPage({
         <div className="absolute inset-0 circuit-grid opacity-30" />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-white/80 mb-8">
-            <Link href="/" className="text-white/90 hover:text-primary transition-colors">
+          <nav className="flex items-center gap-2 text-sm text-gray-800 mb-8">
+            <Link href="/" className="text-gray-800 hover:text-primary transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 text-white/70" />
-            <Link href="/location" className="text-white/90 hover:text-primary transition-colors">
+            <ChevronRight className="w-4 h-4 text-gray-700" />
+            <Link href="/location" className="text-gray-800 hover:text-primary transition-colors">
               Areas We Cover
             </Link>
-            <ChevronRight className="w-4 h-4 text-white/70" />
-            <span className="text-white font-semibold">{area.name}</span>
+            <ChevronRight className="w-4 h-4 text-gray-700" />
+            <span className="text-gray-800 font-semibold">{area.name}</span>
           </nav>
 
           <div className="text-center">
@@ -74,11 +74,11 @@ export default async function LocationDetailPage({
               <MapPin className="w-4 h-4" />
               {area.postcode}
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-white text-balance leading-tight">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 text-balance leading-tight">
               Your Local Electrician in{' '}
               <span className="text-accent glow-text">{area.name}</span>
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-white/70 max-w-2xl mx-auto text-pretty leading-relaxed">
+            <p className="mt-6 text-lg md:text-xl text-gray-800 max-w-2xl mx-auto text-pretty leading-relaxed">
               {area.description}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -162,10 +162,10 @@ export default async function LocationDetailPage({
       <section className="py-20 bg-deep-dark border-t border-border">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <Zap className="w-10 h-10 text-primary mx-auto mb-4" />
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             Need an Electrician in {area.name}?
           </h2>
-          <p className="text-white/70 mb-8 max-w-xl mx-auto">
+          <p className="text-gray-800 mb-8 max-w-xl mx-auto">
             Based locally in NW2, we can be with you fast. Get in touch for a free, no-obligation
             quote for any job in {area.name} ({area.postcode}).
           </p>
@@ -179,7 +179,7 @@ export default async function LocationDetailPage({
             </a>
             <Link
               href="/location"
-              className="flex items-center gap-2 border border-border text-white px-8 py-4 rounded-lg font-semibold hover:bg-card transition-colors"
+              className="flex items-center gap-2 border border-border text-gray-800 px-8 py-4 rounded-lg font-semibold hover:bg-card transition-colors"
             >
               View All Areas
             </Link>
