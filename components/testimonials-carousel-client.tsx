@@ -82,7 +82,7 @@ export function TestimonialsCarouselClient({
                   aria-hidden="true"
                 />
                 <div className="relative flex flex-col items-center gap-6">
-                  <Stars rating={t.rating} className="text-yellow-500" />
+                  <Stars rating={t.rating} />
                   <blockquote className="font-serif text-xl md:text-2xl lg:text-[1.7rem] leading-relaxed text-foreground text-pretty max-w-2xl">
                     “{t.quote}”
                   </blockquote>
