@@ -1,9 +1,8 @@
 import { google } from 'googleapis';
-import { JWT } from 'google-auth-library';
 
-let _jwtClient: JWT | null = null;
+let _jwtClient: InstanceType<typeof google.auth.JWT> | null = null;
 
-function getJwtClient(): JWT {
+function getJwtClient(): InstanceType<typeof google.auth.JWT> {
   if (_jwtClient) return _jwtClient;
 
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
