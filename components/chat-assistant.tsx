@@ -1,350 +1,205 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Send, X, MessageCircle, CheckCircle, AlertCircle, Loader2, ChevronDown } from "lucide-react";
+import { Send, X, MessageCircle, Loader2, Mic, Volume2, VolumeX, Calendar, CalendarCheck, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 
-// ---------------------------------------------------------------------------
-// Types & constants
-// ---------------------------------------------------------------------------
-
-const VALID_SERVICES = [
-  "EICR / Electrical Safety Certificate",
-  "EV Charger Installation",
-  "Fuse Board / Consumer Unit Upgrade",
-  "Full Rewire",
-  "Lighting & Socket Installation",
-  "Fault Finding & Repair",
-  "Other / Not Sure",
-] as const;
-
-type Step =
-  | "name"
-  | "email"
-  | "phone"
-  | "service"
-  | "date"
-  | "time"
-  | "address"
-  | "notes"
-  | "confirm"
-  | "done";
-
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  date: string;
-  time: string;
-  address: string;
-  notes: string;
-}
-
-interface Message {
-  from: "bot" | "user";
-  text: string;
-  options?: string[];
-}
-
-const STEP_ORDER: Step[] = [
-  "name",
-  "email",
-  "phone",
-  "service",
-  "date",
-  "time",
-  "address",
-  "notes",
-  "confirm",
-];
-
-const STEP_PROMPTS: Record<Step, string> = {
-  name: "👋 Hi! I'm Jamez's booking assistant. I'll help you schedule an appointment. What's your **full name**?",
-  email: "Thanks! What's your **email address** so we can confirm the booking?",
-  phone: "Got it. What's the best **phone number** to reach you?",
-  service: "Which **service** do you need? Pick one from the list below:",
-  date: "What **date** would you like? (Use YYYY-MM-DD format, e.g. 2026-01-15)",
-  time: "What **time** works best? (Use HH:mm 24‑hour format, e.g. 09:00 or 14:30)",
-  address: "Where should we come? Please enter the full **address** (including postcode).",
-  notes: "Any **extra notes** for Jamez? (Type 'skip' or 'no' to leave blank)",
-  confirm: "Here's a summary. Does everything look correct? Type **yes** to confirm or **no** to restart.",
-  done: "",
-};
-
-// ---------------------------------------------------------------------------
-// Validation helpers (mirrors the API route)
-// ---------------------------------------------------------------------------
-
-function validateField(step: Step, value: string): string | null {
-  const v = value.trim();
-  switch (step) {
-    case "name":
-      return v.length >= 2 ? null : "Name must be at least 2 characters.";
-    case "email":
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Enter a valid email address.";
-    case "phone":
-      return v.length >= 7 ? null : "Phone number must be at least 7 digits.";
-    case "service":
-      return (VALID_SERVICES as readonly string[]).includes(v)
-        ? null
-        : `Please pick one of the listed services.`;
-    case "date":
-      return /^\d{4}-\d{2}-\d{2}$/.test(v) ? null : "Use YYYY-MM-DD format (e.g. 2026-01-15).";
-    case "time":
-      return /^\d{2}:\d{2}$/.test(v) ? null : "Use HH:mm 24‑hour format (e.g. 09:00).";
-    case "address":
-      return v.length >= 5 ? null : "Address must be at least 5 characters.";
-    default:
-      return null;
+// Types for Speech Recognition
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
   }
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
-
 export function ChatAssistant() {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState<Step>("name");
-  const [form, setForm] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    date: "",
-    time: "",
-    address: "",
-    notes: "",
-  });
-  const [messages, setMessages] = useState<Message[]>([
-    { from: "bot", text: STEP_PROMPTS.name },
-  ]);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [availableSlots, setAvailableSlots] = useState<string[] | null>(null);
-
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
+  const recognitionRef = useRef<any>(null);
+  const lastSpokenMessageId = useRef<string | null>(null);
+
+  const {
+    messages,
+    sendMessage,
+    status,
+    addToolResult
+  } = useChat({
+    id: 'booking-chat',
+    transport: new DefaultChatTransport({ api: '/api/chat' }),
+    messages: [
+      {
+        id: 'welcome',
+        role: 'assistant',
+        parts: [{ type: 'text', text: "Hi! I'm the Electric Jamez booking assistant. How can I help you today? I can answer questions or help you book an appointment." }]
+      } as any
+    ]
+  });
+
+  const isLoading = status === 'submitted' || status === 'streaming';
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  }, []);
+
+  const handleSubmit = useCallback((e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!input.trim() && !isListening) return;
+    sendMessage({ role: 'user', id: Date.now().toString(), parts: [{ type: 'text', text: input }] } as any);
+    setInput('');
+  }, [input, isListening, sendMessage]);
 
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isLoading]);
 
-  // Focus input when panel opens or step changes
+  // Focus input when panel opens
   useEffect(() => {
-    if (open && step !== "done") {
+    if (open) {
       inputRef.current?.focus();
     }
-  }, [open, step]);
+  }, [open]);
 
-  // ------------------------------------------------------------------
-  // Helpers
-  // ------------------------------------------------------------------
-
-  const addMessage = useCallback((msg: Message) => {
-    setMessages((prev) => [...prev, msg]);
+  // Setup Speech Synthesis
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      synthRef.current = window.speechSynthesis;
+    }
   }, []);
 
-  const advanceStep = useCallback(
-    (current: Step, value: string) => {
-      const idx = STEP_ORDER.indexOf(current);
-      if (idx >= 0 && idx < STEP_ORDER.length - 1) {
-        setStep(STEP_ORDER[idx + 1]);
-      } else {
-        setStep("confirm");
-      }
-    },
-    [],
-  );
+  // Setup Speech Recognition
+  useEffect(() => {
+    if (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-GB';
 
-  // ------------------------------------------------------------------
-  // Process user input for the current step
-  // ------------------------------------------------------------------
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput((prev) => prev + (prev ? ' ' : '') + transcript);
+      };
 
-  const processInput = useCallback(
-    async (raw: string) => {
-      const trimmed = raw.trim();
-      if (!trimmed) return;
+      recognitionRef.current.onerror = (event: any) => {
+        console.error("Speech recognition error", event.error);
+        setIsListening(false);
+      };
 
-      // Add user message
-      addMessage({ from: "user", text: trimmed });
-
-      // Handle confirmation step
-      if (step === "confirm") {
-        const lower = trimmed.toLowerCase();
-        if (lower === "yes" || lower === "y" || lower === "confirm") {
-          await submitBooking();
-          return;
-        }
-        if (lower === "no" || lower === "n" || lower === "restart") {
-          // Reset
-          setForm({ name: "", email: "", phone: "", service: "", date: "", time: "", address: "", notes: "" });
-          setStep("name");
-          setMessages([{ from: "bot", text: "No worries! Let's start over. What's your **full name**?" }]);
-          setError(null);
-          setAvailableSlots(null);
-          return;
-        }
-        addMessage({ from: "bot", text: "Please type **yes** to confirm or **no** to restart." });
-        return;
-      }
-
-      // Handle notes step (optional skip)
-      if (step === "notes") {
-        const skip = ["skip", "no", "none", "n/a", "nothing"].includes(trimmed.toLowerCase());
-        const newForm = { ...form, notes: skip ? "" : trimmed };
-        setForm(newForm);
-        setStep("confirm");
-        addMessage({
-          from: "bot",
-          text: buildSummary(newForm),
-        });
-        return;
-      }
-
-      // Validate
-      const err = validateField(step, trimmed);
-      if (err) {
-        addMessage({ from: "bot", text: `⚠️ ${err} Please try again.` });
-        return;
-      }
-
-      // Store value & advance
-      const newForm = { ...form, [step]: trimmed };
-      setForm(newForm);
-      setError(null);
-
-      const nextIdx = STEP_ORDER.indexOf(step) + 1;
-      const nextStep = STEP_ORDER[nextIdx];
-
-      if (nextStep === "service") {
-        addMessage({
-          from: "bot",
-          text: STEP_PROMPTS.service,
-          options: [...VALID_SERVICES],
-        });
-      } else if (nextStep === "confirm") {
-        addMessage({
-          from: "bot",
-          text: buildSummary(newForm),
-        });
-      } else {
-        addMessage({ from: "bot", text: STEP_PROMPTS[nextStep] });
-      }
-
-      advanceStep(step, trimmed);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step, form, addMessage, advanceStep],
-  );
-
-  // ------------------------------------------------------------------
-  // Build confirmation summary
-  // ------------------------------------------------------------------
-
-  function buildSummary(data: FormData): string {
-    return (
-      `📋 **Booking Summary**\n\n` +
-      `• **Name:** ${data.name}\n` +
-      `• **Email:** ${data.email}\n` +
-      `• **Phone:** ${data.phone}\n` +
-      `• **Service:** ${data.service}\n` +
-      `• **Date:** ${data.date}\n` +
-      `• **Time:** ${data.time}\n` +
-      `• **Address:** ${data.address}\n` +
-      `${data.notes ? `• **Notes:** ${data.notes}\n` : ""}` +
-      `\nType **yes** to book or **no** to restart.`
-    );
-  }
-
-  // ------------------------------------------------------------------
-  // Submit to /api/booking
-  // ------------------------------------------------------------------
-
-  async function submitBooking() {
-    setLoading(true);
-    setError(null);
-    setAvailableSlots(null);
-
-    try {
-      const res = await fetch("/api/booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      const json = await res.json();
-
-      if (res.ok) {
-        setStep("done");
-        addMessage({
-          from: "bot",
-          text:
-            `✅ **All booked!** 🎉\n\n` +
-            `Your appointment for **${form.service}** on **${form.date}** at **${form.time}** has been scheduled.\n\n` +
-            `Jamez will send a confirmation to **${form.email}** shortly. If you need to change anything, just give us a call.\n\n` +
-            `Thanks for choosing Electric Jamez! ⚡`,
-        });
-      } else if (res.status === 409 && json.availableSlots) {
-        // Slot conflict — show alternatives
-        setAvailableSlots(json.availableSlots);
-        addMessage({
-          from: "bot",
-          text:
-            `⚠️ That slot is already booked. Here are some **available slots** on ${form.date}:\n\n` +
-            json.availableSlots.map((s: string) => `• ${s}`).join("\n") +
-            `\n\nPlease type a new time (HH:mm) or type a new date (YYYY-MM-DD) to check another day.`,
-        });
-        // Stay on time step so user can retry
-        setStep("time");
-      } else {
-        setError(json.error || "Something went wrong. Please try again.");
-        addMessage({
-          from: "bot",
-          text: `❌ ${json.error || "Something went wrong. Please try again later."}`,
-        });
-        // Go back to name step on server error so user can retry
-        setStep("name");
-      }
-    } catch {
-      setError("Network error. Please check your connection and try again.");
-      addMessage({
-        from: "bot",
-        text: "❌ Network error. Please check your connection and try again.",
-      });
-    } finally {
-      setLoading(false);
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
     }
-  }
+  }, []);
+
+  const toggleListening = useCallback(() => {
+    if (!recognitionRef.current) {
+      alert("Speech recognition is not supported in this browser.");
+      return;
+    }
+    
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current.start();
+      setIsListening(true);
+    }
+  }, [isListening]);
+
+  // Text-to-Speech playback when the assistant completes a message
+  useEffect(() => {
+    if (isMuted || !synthRef.current) return;
+
+    // Find the last assistant message
+    const lastMessage = messages[messages.length - 1];
+    
+    // Only speak if it's from the assistant, it's not currently loading (streaming), 
+    // it has parts, and we haven't spoken it yet.
+    if (
+      lastMessage &&
+      lastMessage.role === 'assistant' &&
+      !isLoading &&
+      lastMessage.parts &&
+      lastMessage.id !== lastSpokenMessageId.current
+    ) {
+      const textPart = lastMessage.parts.find(p => p.type === 'text') as any;
+      if (textPart && textPart.text) {
+        lastSpokenMessageId.current = lastMessage.id;
+        
+        // Stop any current speech
+        synthRef.current.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(textPart.text);
+        
+        // Try to find a British English voice
+        const voices = synthRef.current.getVoices();
+        const gbVoice = voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB');
+        if (gbVoice) {
+          utterance.voice = gbVoice;
+        }
+        
+        synthRef.current.speak(utterance);
+      }
+    }
+  }, [messages, isLoading, isMuted]);
+
+  // Stop speaking when closed
+  useEffect(() => {
+    if (!open && synthRef.current) {
+      synthRef.current.cancel();
+      if (isListening && recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    }
+  }, [open, isListening]);
+
 
   // ------------------------------------------------------------------
-  // Handle option click (service picker)
+  // Render Helpers
   // ------------------------------------------------------------------
-
-  function handleOptionClick(option: string) {
-    setInput(option);
-    // Auto-submit the option
-    setTimeout(() => processInput(option), 0);
-  }
-
-  // ------------------------------------------------------------------
-  // Handle form submit (Enter key)
-  // ------------------------------------------------------------------
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (loading || step === "done") return;
-    const val = input;
-    setInput("");
-    processInput(val);
-  }
-
-  // ------------------------------------------------------------------
-  // Render
-  // ------------------------------------------------------------------
+  
+  const getToolCallUI = (part: any) => {
+    if (!part.type.startsWith('tool-')) return null;
+    const toolName = part.type.replace('tool-', '');
+    const { state, output, input } = part;
+    
+    if (toolName === 'checkAvailability') {
+      return (
+        <div className="flex items-center gap-2 p-2 mt-2 bg-muted/50 rounded-lg text-sm text-muted-foreground border border-border">
+          {state === 'output-available' ? <CalendarCheck className="h-4 w-4 text-green-500" /> : <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+          {state === 'output-available' ? (
+            output?.success ? `Checked availability for ${input?.date}` : 'Failed to check calendar'
+          ) : (
+            `Checking calendar for ${input?.date || '...'}...`
+          )}
+        </div>
+      );
+    }
+    
+    if (toolName === 'bookAppointment') {
+      return (
+        <div className="flex items-center gap-2 p-2 mt-2 bg-muted/50 rounded-lg text-sm text-muted-foreground border border-border">
+          {state === 'output-available' ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+          {state === 'output-available' ? (
+            output?.success ? 'Appointment successfully booked!' : 'Failed to book appointment.'
+          ) : (
+            'Booking your appointment...'
+          )}
+        </div>
+      );
+    }
+    
+    return null;
+  };
 
   return (
     <>
@@ -382,161 +237,139 @@ export function ChatAssistant() {
               <p className="text-xs text-muted-foreground">Booking Assistant ⚡</p>
             </div>
           </div>
-          <button
-            onClick={() => setOpen(false)}
-            aria-label="Close chat"
-            className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setIsMuted(!isMuted);
+                if (!isMuted && synthRef.current) synthRef.current.cancel();
+              }}
+              aria-label={isMuted ? "Unmute voice" : "Mute voice"}
+              className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            >
+              {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+            </button>
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close chat"
+              className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 bg-background">
-          {messages.map((msg, i) => (
+          {messages.map((m) => (
             <div
-              key={i}
+              key={m.id}
               className={cn(
                 "flex gap-2.5",
-                msg.from === "user" ? "justify-end" : "justify-start",
+                m.role === 'user' ? "flex-row-reverse" : "flex-row"
               )}
             >
-              {msg.from === "bot" && (
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold mt-0.5">
-                  EJ
-                </div>
-              )}
               <div
                 className={cn(
-                  "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap",
-                  msg.from === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-md"
-                    : "bg-muted text-foreground rounded-bl-md",
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold shadow-sm",
+                  m.role === 'user'
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-foreground",
                 )}
               >
-                {/* Render bold markdown-ish text */}
-                {msg.text.split(/(\*\*.*?\*\*)/).map((part, j) =>
-                  part.startsWith("**") && part.endsWith("**") ? (
-                    <strong key={j}>{part.slice(2, -2)}</strong>
-                  ) : (
-                    part
-                  ),
-                )}
+                {m.role === 'user' ? "ME" : "EJ"}
+              </div>
 
-                {/* Option chips for service selection */}
-                {msg.options && msg.options.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {msg.options.map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => handleOptionClick(opt)}
-                        disabled={loading || step !== "service"}
+              <div className="flex flex-col gap-1 max-w-[80%]">
+                {m.parts?.map((part: any, i: number) => {
+                  if (part.type === 'text') {
+                    return (
+                      <div
+                        key={i}
                         className={cn(
-                          "rounded-full border border-border px-3 py-1.5 text-xs font-medium transition-colors",
-                          "hover:bg-primary hover:text-primary-foreground hover:border-primary",
-                          "disabled:opacity-50 disabled:cursor-not-allowed",
+                          "rounded-2xl px-4 py-2 text-sm shadow-sm mb-1",
+                          m.role === 'user'
+                            ? "bg-primary text-primary-foreground rounded-tr-sm"
+                            : "bg-card text-card-foreground border border-border rounded-tl-sm whitespace-pre-wrap",
                         )}
                       >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                        {part.text}
+                      </div>
+                    );
+                  }
+                  
+                  if (part.type.startsWith('tool-')) {
+                    return <div key={i}>{getToolCallUI(part)}</div>;
+                  }
+                  
+                  return null;
+                })}
               </div>
-              {msg.from === "user" && (
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground text-xs font-bold mt-0.5">
-                  U
-                </div>
-              )}
             </div>
           ))}
-
-          {/* Loading indicator */}
-          {loading && (
-            <div className="flex items-center gap-2 text-muted-foreground text-sm pl-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Booking your appointment...
+          
+          {isLoading && messages.length > 0 && messages[messages.length - 1].role === 'user' && (
+            <div className="flex gap-2.5 flex-row">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-foreground text-xs font-semibold shadow-sm">
+                EJ
+              </div>
+              <div className="rounded-2xl rounded-tl-sm bg-card border border-border px-4 py-3 shadow-sm">
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+              </div>
             </div>
           )}
-
-          {/* Available slots after conflict */}
-          {availableSlots && step === "time" && !loading && (
-            <div className="flex flex-wrap gap-2 pl-2">
-              {availableSlots.map((slot) => (
-                <button
-                  key={slot}
-                  onClick={() => {
-                    setInput(slot);
-                    setAvailableSlots(null);
-                    setTimeout(() => processInput(slot), 0);
-                  }}
-                  className="rounded-full border border-green-500/50 bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-400 hover:bg-green-500/20 transition-colors"
-                >
-                  {slot}
-                </button>
-              ))}
-            </div>
-          )}
-
+          
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input area */}
-        {step !== "done" && (
+        {/* Input form */}
+        <div className="border-t border-border bg-card p-4">
           <form
             onSubmit={handleSubmit}
-            className="border-t border-border bg-card px-4 py-3 flex items-center gap-2"
+            className="flex items-center gap-2 rounded-full border border-input bg-background pl-4 pr-1.5 py-1.5 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 transition-all shadow-sm"
           >
             <input
               ref={inputRef}
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={
-                step === "service"
-                  ? "Pick a service above or type it..."
-                  : step === "notes"
-                    ? "Any notes? (type 'skip' to leave blank)"
-                    : "Type your answer..."
-              }
-              disabled={loading}
-              className={cn(
-                "flex-1 rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground",
-                "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
-                "disabled:opacity-50",
-              )}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              placeholder="Type your message..."
+              className="flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              aria-label="Send message"
+              type="button"
+              onClick={toggleListening}
+              disabled={isLoading}
+              aria-label="Toggle voice input"
               className={cn(
-                "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-colors",
-                "hover:bg-primary/90 disabled:opacity-40",
+                "flex h-9 w-9 items-center justify-center rounded-full transition-colors shrink-0",
+                isListening 
+                  ? "bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-500" 
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                isLoading && "opacity-50 cursor-not-allowed"
               )}
+            >
+              {isListening ? (
+                <div className="relative flex items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                  <Mic className="relative h-4 w-4" />
+                </div>
+              ) : (
+                <Mic className="h-4 w-4" />
+              )}
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading || (!input.trim() && !isListening)}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm transition-transform hover:scale-105 hover:shadow disabled:pointer-events-none disabled:opacity-50 shrink-0"
             >
               <Send className="h-4 w-4" />
             </button>
           </form>
-        )}
-
-        {/* Done state — restart button */}
-        {step === "done" && (
-          <div className="border-t border-border bg-card px-5 py-4">
-            <button
-              onClick={() => {
-                setStep("name");
-                setForm({ name: "", email: "", phone: "", service: "", date: "", time: "", address: "", notes: "" });
-                setMessages([{ from: "bot", text: STEP_PROMPTS.name }]);
-                setError(null);
-                setAvailableSlots(null);
-              }}
-              className="w-full rounded-xl bg-primary text-primary-foreground py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Book Another Appointment
-            </button>
+          <div className="mt-2 text-center text-[10px] text-muted-foreground/60">
+            AI booking assistant. Information is not legally binding.
           </div>
-        )}
+        </div>
       </div>
     </>
   );
