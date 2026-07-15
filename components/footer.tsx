@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-900/20 rounded-full blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-12">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32 pb-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-4 lg:pr-8">

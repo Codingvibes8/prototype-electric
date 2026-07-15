@@ -106,7 +106,7 @@ const usps = [
 export function Services() {
   return (
     <section id="services" className="relative py-24 md:py-32 bg-slate-50">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32">
         <div className="text-center mb-12 animate-in fade-in slide-in-from-top-4 duration-1000 fill-mode-both">
           <span className="text-sm font-semibold text-gray-700 uppercase tracking-[0.2em]">
             Residential Electrical Services

@@ -14,7 +14,7 @@ export function Gallery() {
   return (
     <section id="gallery" className="relative py-24 md:py-32 bg-slate-50">
 
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 sm:px-18 md:px-24 lg:px-32">
         <div className="text-center mb-16">
           <span className="text-xl font-bold text-primary uppercase tracking-wider">
             Our Work
